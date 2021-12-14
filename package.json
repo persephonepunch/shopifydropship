@@ -2,6 +2,7 @@
   "name": "webflow-on-next",
   "private": true,
   "scripts": {
+    "clean": "rm -rf styles/ui.css && rm -rf helpers/ui-meta.json && rm -rf public/ui",
     "dev": "polymorph build && next dev",
     "build": "polymorph build && next build",
     "start": "polymorph build && next start",

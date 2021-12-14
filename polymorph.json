@@ -1,0 +1,12 @@
+{
+  "site": "https://polymorph-v2.webflow.io/",
+  "framework": "next",
+  "components": "/components/ui",
+  "css": "/styles/ui.css",
+  "js": "/public/ui/scripts.js",
+  "meta": "/helpers/ui-meta.json",
+  "icons": "/public/ui/icons",
+  "assets": "/public/ui",
+  "assetsUrlPath": "/ui",
+  "minifyJs": true
+}
