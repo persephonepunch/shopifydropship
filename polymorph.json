@@ -1,5 +1,5 @@
 {
-  "site": "https://polymorph-v2.webflow.io/",
+  "site": "https://polymorph-default-template.webflow.io/",
   "framework": "next",
   "components": "/components/ui",
   "css": "/styles/ui.css",
@@ -8,5 +8,14 @@
   "icons": "/public/ui/icons",
   "assets": "/public/ui",
   "assetsUrlPath": "/ui",
+	"pages": "/pages",
+	"excludePageComponents": [
+		"SiteHeader",
+		"SiteFooter"
+	],
+	"requiredComponents": [
+		"SiteHeader",
+		"SiteFooter"
+	],
   "minifyJs": true
 }
