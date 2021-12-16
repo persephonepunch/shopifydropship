@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      
+            <url>
+              <loc>http://localhost:3000/</loc>
+              <lastmod>2021-12-16T22:06:45.749Z</lastmod>
+              <changefreq>monthly</changefreq>
+              <priority>1.0</priority>
+            </url>
+          
+            <url>
+              <loc>http://localhost:3000/work/project-2</loc>
+              <lastmod>2021-12-16T22:06:45.749Z</lastmod>
+              <changefreq>monthly</changefreq>
+              <priority>1.0</priority>
+            </url>
+          
+            <url>
+              <loc>http://localhost:3000/styleguide</loc>
+              <lastmod>2021-12-16T22:06:45.749Z</lastmod>
+              <changefreq>monthly</changefreq>
+              <priority>1.0</priority>
+            </url>
+          
+            <url>
+              <loc>http://localhost:3000/team</loc>
+              <lastmod>2021-12-16T22:06:45.749Z</lastmod>
+              <changefreq>monthly</changefreq>
+              <priority>1.0</priority>
+            </url>
+          
+            <url>
+              <loc>http://localhost:3000/work/project-1</loc>
+              <lastmod>2021-12-16T22:06:45.749Z</lastmod>
+              <changefreq>monthly</changefreq>
+              <priority>1.0</priority>
+            </url>
+          
+            <url>
+              <loc>http://localhost:3000/blog</loc>
+              <lastmod>2021-12-16T22:06:45.749Z</lastmod>
+              <changefreq>monthly</changefreq>
+              <priority>1.0</priority>
+            </url>
+          
+            <url>
+              <loc>http://localhost:3000/about</loc>
+              <lastmod>2021-12-16T22:06:45.749Z</lastmod>
+              <changefreq>monthly</changefreq>
+              <priority>1.0</priority>
+            </url>
+          
+            <url>
+              <loc>http://localhost:3000/projects</loc>
+              <lastmod>2021-12-16T22:06:45.749Z</lastmod>
+              <changefreq>monthly</changefreq>
+              <priority>1.0</priority>
+            </url>
+          
+            <url>
+              <loc>http://localhost:3000/contact</loc>
+              <lastmod>2021-12-16T22:06:45.749Z</lastmod>
+              <changefreq>monthly</changefreq>
+              <priority>1.0</priority>
+            </url>
+          
+            <url>
+              <loc>http://localhost:3000/work/project-3</loc>
+              <lastmod>2021-12-16T22:06:45.749Z</lastmod>
+              <changefreq>monthly</changefreq>
+              <priority>1.0</priority>
+            </url>
+          
+            <url>
+              <loc>http://localhost:3000/post/15-best-blogs-to-follow-about-web-design</loc>
+              <lastmod>2021-12-16T22:06:45.749Z</lastmod>
+              <changefreq>monthly</changefreq>
+              <priority>1.0</priority>
+            </url>
+          
+            <url>
+              <loc>http://localhost:3000/post/7-of-the-best-examples-of-beautiful-blog-design</loc>
+              <lastmod>2021-12-16T22:06:45.749Z</lastmod>
+              <changefreq>monthly</changefreq>
+              <priority>1.0</priority>
+            </url>
+          
+            <url>
+              <loc>http://localhost:3000/post/10-quick-tips-about-blogging</loc>
+              <lastmod>2021-12-16T22:06:45.749Z</lastmod>
+              <changefreq>monthly</changefreq>
+              <priority>1.0</priority>
+            </url>
+          
+            <url>
+              <loc>http://localhost:3000/post/5-principles-of-effective-web-design</loc>
+              <lastmod>2021-12-16T22:06:45.749Z</lastmod>
+              <changefreq>monthly</changefreq>
+              <priority>1.0</priority>
+            </url>
+          
+            <url>
+              <loc>http://localhost:3000/post/14-common-misconceptions-about-web-design</loc>
+              <lastmod>2021-12-16T22:06:45.749Z</lastmod>
+              <changefreq>monthly</changefreq>
+              <priority>1.0</priority>
+            </url>
+          
+    </urlset>
+  

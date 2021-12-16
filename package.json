@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "polymorph": "dotenv -e ./.env -- polymorph build",
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "yarn build:sitemap && next dev",
+    "build": "yarn build:sitemap && next build",
+    "build:sitemap": "node helpers/generate-sitemap.js",
     "start": "next start",
     "lint": "next lint"
   },

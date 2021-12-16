@@ -96,5 +96,8 @@ export async function getStaticProps(ctx) {
   const props = await fetchWebflowPage({ url })
 
   // Send HTML to component via props
-  return { props }
+  return {
+    props,
+    revalidate: false,
+  }
 }
