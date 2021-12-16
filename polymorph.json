@@ -9,11 +9,12 @@
   "icons": "/public/ui/icons",
   "assets": "/public/ui",
   "assetsUrlPath": "/ui",
-
   "minifyJs": false,
+
   "removeBranding": true,
 
   "optimizeImages": true,
+  "clientSideRouting": true,
   "generateSitemap": true,
   "searchIndexing": true
 }
