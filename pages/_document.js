@@ -1,7 +1,7 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-import meta from '../helpers/ui-meta.json' // Contains HTML attributes necessary for Webflow JS to run
+import meta from '../helpers/ui-meta.json'
 
-export default class MyDocument extends Document {
+class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx)
     return { ...initialProps }
@@ -19,3 +19,5 @@ export default class MyDocument extends Document {
     )
   }
 }
+
+export default MyDocument

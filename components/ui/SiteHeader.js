@@ -7,32 +7,34 @@ import Link from "next/link";export default function SiteHeader(props) {
       data-easing="ease"
       data-easing2="ease"
       role="banner"
-      className="_wf-navbar-1 on-white w-nav"
+      className="navigation w-nav"
     >
-      <div className="nav-container w-container"> <Link href="/"><a className="brand w-nav-brand">
+      <div className="navigation-wrap"> <Link href="/"><a className="logo-link w-nav-brand">
             <img
-              src="/ui/616db17b8be8e15811beb627/616db1939b209b54cd42b744_white-logo.svg"
-              width="170"
-              height="37"
-              alt="Polymorph logo"
-              className="image-2"
+              src="/ui/61b9163cf77f055e0766de10/61b9163cf77f05da6d66de35_business-logo%402x.png"
+              width="108"
+              alt=""
+              className="logo-image"
             />
-          </a></Link> <nav
-          role="navigation"
-          className="_wf-nav-menu-1 on-white-nav-menu w-nav-menu"
+          </a></Link> <div className="menu">
+          <nav role="navigation" className="navigation-items w-nav-menu"> <Link href="/about"><a aria-current="page"
+                className="navigation-item w-nav-link w--current"
+              >
+                About
+              </a></Link> <Link href="/projects"><a className="navigation-item w-nav-link">Work</a></Link> <Link href="/team"><a className="navigation-item w-nav-link">team</a></Link> <Link href="/blog"><a className="navigation-item w-nav-link">Blog</a></Link> <Link href="/contact"><a className="navigation-item w-nav-link">Contact</a></Link> </nav>
+          <div className="menu-button w-nav-button">
+            <img
+              src="/ui/61b9163cf77f055e0766de10/61b9163cf77f053e2566de36_menu-icon.png"
+              width="22"
+              alt=""
+              className="menu-icon"
+            />
+          </div>
+        </div> <a href="mailto:mail@business.com?subject=You've%20got%20mail!"
+          className="button cc-contact-us w-inline-block"
         >
-          {props.rightNav}
-        </nav>
-        <div className="_wf-menu-button hamburger-icon w-nav-button">
-          <img
-            src="/ui/616db17b8be8e15811beb627/61756cdfcaccc3d40c1b84a7_nav-icon.svg"
-            height="30"
-            width="30"
-            alt=""
-            className="image"
-          />
-        </div>
-      </div>
+          <div>Contact US</div>
+        </a> </div>
     </div>
   );
 }

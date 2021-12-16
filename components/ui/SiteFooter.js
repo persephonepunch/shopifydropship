@@ -1,32 +1,19 @@
 export default function SiteFooter(props) {
   return (
-    <div className="footer">
+    <div className="section">
       <div className="container">
-        <div className="footer-legal">
-          <div className="footer-detail-left">
-            <div>
-              Polymorph © 2021 <a href="https://smarterlabs.com/"
-                rel="noopener noreferrer"
-                target="_blank"
-                className="webflow-link"
-              >
-                Smarter Labs
-              </a> </div>
-          </div>
-          <div className="footer-detail-right">
-            <div className="social-icon-wrap"> <a href="https://twitter.com/polymorphcli"
-                className="social-link w-inline-block"
-              >
-                <img
-                  src="/ui/616db17b8be8e15811beb627/616db199bf17fc4dd9bef11f_twitter.svg"
-                  width="30"
-                  height="30"
-                  alt="Twitter logo"
-                  className="social-icon"
-                />
-              </a> </div>
-          </div>
-        </div>
+        <div className="footer-wrap"> <a href="https://webflow.com/"
+            target="_blank"
+            className="webflow-link w-inline-block"
+          >
+            <img
+              src="/ui/61b9163cf77f055e0766de10/61b9163cf77f0553de66de42_webflow-w-small%402x.png"
+              width="15"
+              alt=""
+              className="webflow-logo-tiny"
+            />
+            <div className="paragraph-tiny">Powered by Webflow</div>
+          </a> </div>
       </div>
     </div>
   );

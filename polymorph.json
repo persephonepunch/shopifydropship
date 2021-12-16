@@ -8,14 +8,6 @@
   "icons": "/public/ui/icons",
   "assets": "/public/ui",
   "assetsUrlPath": "/ui",
-	"pages": "/pages",
-	"excludePageComponents": [
-		"SiteHeader",
-		"SiteFooter"
-	],
-	"requiredComponents": [
-		"SiteHeader",
-		"SiteFooter"
-	],
-  "minifyJs": true
+  "removeBranding": true,
+  "minifyJs": false
 }
