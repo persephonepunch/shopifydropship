@@ -5,9 +5,15 @@
   "css": "/styles/ui.css",
   "js": "/public/ui/scripts.js",
   "meta": "/helpers/ui-meta.json",
+  "pageList": "/helpers/ui-page-list.json",
   "icons": "/public/ui/icons",
   "assets": "/public/ui",
   "assetsUrlPath": "/ui",
+
+  "minifyJs": false,
   "removeBranding": true,
-  "minifyJs": false
+
+  "optimizeImages": true,
+  "generateSitemap": true,
+  "searchIndexing": true
 }
