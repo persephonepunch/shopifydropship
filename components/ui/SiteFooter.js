@@ -3,7 +3,6 @@ export default function SiteFooter(props) {
     <div className="section">
       <div className="container">
         <div className="footer-wrap"> <a href="https://webflow.com/"
-            target="_blank"
             className="webflow-link w-inline-block"
           >
             <img
