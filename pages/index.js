@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import Image from 'next/image'
 import parseHtml, { domToReact } from 'html-react-parser'
 import get from 'lodash/get'
 import React from 'react'
@@ -25,7 +26,7 @@ function replace(node){
   const attribs = node.attribs || {}
 
   // Replace links with Next links
-  if(node.name === `a` && isUrlInternal(attribs.href)){
+  if(polymorphConfig.clientSideRouting && node.name === `a` && isUrlInternal(attribs.href)){
     const { href, style, ...props } = attribs
     if(props.class){
       props.className = props.class
@@ -51,6 +52,38 @@ function replace(node){
         </a>
       </Link>
     )
+  }
+
+  if(node.name === `img` && polymorphConfig.optimizeImages){
+    const { src, alt, style, ...props } = attribs
+    if(props.class){
+      props.className = props.class
+      delete props.class
+    }
+    if(props.width && props.height){
+
+      if(!style){
+        return (
+          <Image
+            {...props}
+            src={src}
+            alt={alt}
+            width={props.width}
+            height={props.height}
+          />
+        )
+      }
+      return (
+        <Image
+          {...props}
+          src={src}
+          alt={alt}
+          width={props.width}
+          height={props.height}
+          css={style}
+        />
+      )
+    }
   }
 
 

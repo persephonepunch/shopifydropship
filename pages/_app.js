@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import Head from "next/head"
 import Script from 'next/script'
 import { useRouter } from 'next/router'
-import createTitle from '../helpers/create-title'
 import SiteHeader from '../components/ui/SiteHeader'
 import SiteFooter from '../components/ui/SiteFooter'
 import '../styles/ui.css'
@@ -40,12 +39,9 @@ function App(props) {
 
   return <>
     <Head>
-      <title>{createTitle()}</title>
-
       <link href="/ui/icons/favicon.png" rel="shortcut icon" type="image/x-icon" />
       <link href="/ui/icons/webclip.png" rel="apple-touch-icon" />
       <meta name="description" content="Polymorph is a CLI tool for converting Webflow projects to UI libraries for various frameworks including React, Svelte, Vue.js, Shopify Liquid, Angular, SolidJS, Web Components, and JavaScript." />
-
     </Head>
 
     <SiteHeader />

@@ -34,3 +34,9 @@ yarn-error.log*
 # vercel
 .vercel
 !public
+
+# Polymorph
+components/ui
+public/ui
+helpers/ui
+public/sitemap.xml

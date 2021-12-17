@@ -1,5 +1,5 @@
 import DynamicPath, { getStaticProps } from './index'
-// import pageList from '../helpers/ui-page-list.json'
+// import pageList from '../helpers/ui/page-list.json'
 
 export default DynamicPath
 

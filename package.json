@@ -3,12 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "polymorph": "dotenv -e ./.env -- polymorph build",
-    "dev": "yarn build:sitemap && next dev",
-    "build": "yarn build:sitemap && next build",
-    "build:sitemap": "node helpers/generate-sitemap.js",
-    "start": "next start",
-    "lint": "next lint"
+    "clean": "del components/ui && del styles/ui.css && del public/ui && del helpers/ui",
+    "dev": "next dev",
+    "build": "next build",
+    "helpers": "yarn helpers:ensure-header-footer && yarn helpers:sitemap",
+    "helpers:sitemap": "node helpers/generate-sitemap.js",
+    "helpers:ensure-header-footer": "node helpers/ensure-header-and-footer.js",
+    "lint": "next lint",
+    "polymorph": "yarn run clean && dotenv -e ./.env -- polymorph build && yarn helpers",
+    "start": "next start"
   },
   "dependencies": {
     "@forevolve/bootstrap-dark": "^2.1.0",
@@ -31,7 +34,8 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@smarterlabs/polymorph": "0.2.11",
+    "@smarterlabs/polymorph": "0.2.13",
+    "del-cli": "^4.0.1",
     "dotenv-cli": "^4.0.0",
     "eslint": "8.4.1",
     "eslint-config-next": "12.0.7",
