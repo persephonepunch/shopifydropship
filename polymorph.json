@@ -1,5 +1,5 @@
 {
-  "site": "https://sl4.webflow.io/",
+  "site": "https://ligolab-1.webflow.io/",
   "framework": "next",
   "components": "/components/polymorph",
   "css": "/styles/polymorph.css",

@@ -33,7 +33,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@smarterlabs/polymorph": "0.2.14",
+    "@smarterlabs/polymorph": "0.2.19",
     "del-cli": "^4.0.1",
     "dotenv-cli": "^4.0.0",
     "eslint": "8.4.1",
