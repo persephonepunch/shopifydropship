@@ -9,8 +9,8 @@ export default function Empty() {
 `.trim()
 
 const ensureComponents = [
-  `components/SiteHeader.js`,
-  `components/SiteFooter.js`,
+  `components/polymorph/SiteHeader.js`,
+  `components/polymorph/SiteFooter.js`,
 ]
 
 async function ensureHeaderAndFooter(){

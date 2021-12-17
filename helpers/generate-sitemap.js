@@ -1,4 +1,4 @@
-const pages = require('../helpers/ui/page-list.json')
+const pages = require('../helpers/polymorph/page-list.json')
 const config = require('../polymorph.json')
 const { outputFile } = require('fs-extra')
 

@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "clean": "del components/ui && del styles/ui.css && del public/ui && del helpers/ui",
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "yarn polymorph && next dev",
+    "build": "yarn polymorph && next build",
     "helpers": "yarn helpers:ensure-header-footer && yarn helpers:sitemap",
     "helpers:sitemap": "node helpers/generate-sitemap.js",
     "helpers:ensure-header-footer": "node helpers/ensure-header-and-footer.js",

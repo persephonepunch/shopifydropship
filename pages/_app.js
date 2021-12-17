@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 import Head from "next/head"
 import Script from 'next/script'
 import { useRouter } from 'next/router'
-import SiteHeader from '../components/ui/SiteHeader'
-import SiteFooter from '../components/ui/SiteFooter'
+import SiteHeader from '../components/polymorph/SiteHeader'
+import SiteFooter from '../components/polymorph/SiteFooter'
 import '../styles/ui.css'
 
 function routeChangeStartHandler(){
@@ -39,15 +39,15 @@ function App(props) {
 
   return <>
     <Head>
-      <link href="/ui/icons/favicon.png" rel="shortcut icon" type="image/x-icon" />
-      <link href="/ui/icons/webclip.png" rel="apple-touch-icon" />
+      <link href="/polymorph/icons/favicon.png" rel="shortcut icon" type="image/x-icon" />
+      <link href="/polymorph/icons/webclip.png" rel="apple-touch-icon" />
       <meta name="description" content="Polymorph is a CLI tool for converting Webflow projects to UI libraries for various frameworks including React, Svelte, Vue.js, Shopify Liquid, Angular, SolidJS, Web Components, and JavaScript." />
     </Head>
 
     <SiteHeader />
     <Component {...pageProps} />
     <SiteFooter />
-    <Script src='/ui/scripts.js' defer />
+    <Script src='/polymorph/scripts.js' defer />
   </>
 }
 
