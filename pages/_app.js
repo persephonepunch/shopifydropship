@@ -2,9 +2,7 @@ import { useEffect } from 'react'
 import Head from "next/head"
 import Script from 'next/script'
 import { useRouter } from 'next/router'
-import SiteHeader from '../components/polymorph/SiteHeader'
-import SiteFooter from '../components/polymorph/SiteFooter'
-import '../styles/polymorph.css'
+// import '../styles/polymorph.css'
 
 function routeChangeStartHandler(){
   // Close nav buttons
@@ -44,9 +42,7 @@ function App(props) {
       <meta name="description" content="Polymorph is a CLI tool for converting Webflow projects to UI libraries for various frameworks including React, Svelte, Vue.js, Shopify Liquid, Angular, SolidJS, Web Components, and JavaScript." />
     </Head>
 
-    <SiteHeader />
     <Component {...pageProps} />
-    <SiteFooter />
     <Script src='/polymorph/scripts.js' defer />
   </>
 }
