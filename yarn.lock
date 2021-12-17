@@ -7620,11 +7620,6 @@ osenv@^0.1.4:
     os-homedir "^1.0.0"
     os-tmpdir "^1.0.0"
 
-outseta-api-client@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/outseta-api-client/-/outseta-api-client-1.1.0.tgz#4dd0bd4a9f49209def0f8ee24bfb8a06b1a077c9"
-  integrity sha512-O+P0OsaGP+PO+mI76CqHRIvzN5OtEpp+jdGUpEbVpGHTmfliZX8/pZV2GuRH6/eQmvCVoXq81J5vP/dFBgxyjw==
-
 p-cancelable@^0.4.0:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/p-cancelable/-/p-cancelable-0.4.1.tgz#35f363d67d52081c8d9585e37bcceb7e0bbcb2a0"
