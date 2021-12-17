@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "clean": "del components/ui && del styles/ui.css && del public/ui && del helpers/ui",
+    "clean": "del components/polymorph && del styles/polymorph.css && del public/polymorph && del helpers/polymorph",
     "dev": "yarn polymorph && next dev",
     "build": "yarn polymorph && next build",
     "helpers": "yarn helpers:ensure-header-footer && yarn helpers:sitemap",

@@ -1,7 +1,7 @@
 {
   "site": "https://polymorph-default-template.webflow.io/",
   "framework": "next",
-  "components": "/components/ui",
+  "components": "/components/polymorph",
   "css": "/styles/polymorph.css",
   "js": "/public/polymorph/scripts.js",
   "meta": "/helpers/polymorph/meta.json",
@@ -13,8 +13,5 @@
 
   "removeBranding": true,
   "optimizeImages": true,
-  "clientSideRouting": false,
-
-  "generateSitemap": true,
-  "searchIndexing": true
+  "clientSideRouting": true
 }

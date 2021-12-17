@@ -4,7 +4,7 @@ import Script from 'next/script'
 import { useRouter } from 'next/router'
 import SiteHeader from '../components/polymorph/SiteHeader'
 import SiteFooter from '../components/polymorph/SiteFooter'
-import '../styles/ui.css'
+import '../styles/polymorph.css'
 
 function routeChangeStartHandler(){
   // Close nav buttons
