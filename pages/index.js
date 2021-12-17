@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
+import Script from 'next/script'
 import parseHtml, { domToReact } from 'html-react-parser'
 import get from 'lodash/get'
 import React from 'react'
@@ -94,6 +95,12 @@ function replace(node){
       content = `setTimeout(function(){${content}}, 1)`
       return (
         <script {...attribs} dangerouslySetInnerHTML={{__html: content}}></script>
+      )
+    }
+    // Get src
+    if(attribs.src){
+      return (
+        <Script {...attribs}></Script>
       )
     }
   }

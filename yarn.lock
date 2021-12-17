@@ -1910,10 +1910,10 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
   integrity sha512-ONhaKPIufzzrlNbqtWFFd+jlnemX6lJAgq9ZeiZtS7I1PIf/la7CW4m83rTXRnVnsMbW2k56pGYu7AUFJD9Pow==
 
-"@smarterlabs/polymorph@0.2.13":
-  version "0.2.13"
-  resolved "https://registry.yarnpkg.com/@smarterlabs/polymorph/-/polymorph-0.2.13.tgz#c39eeee4f283632879755fde6c3960bd3e2abfd2"
-  integrity sha512-ffUMu0gDfSmLfhcyvA4HxAJjNww0kgsj0FumZt2NPD6LlTC4nEnk7f4DNaRJDRWme+HebZRsBc6WTheGKOv4rw==
+"@smarterlabs/polymorph@0.2.14":
+  version "0.2.14"
+  resolved "https://registry.yarnpkg.com/@smarterlabs/polymorph/-/polymorph-0.2.14.tgz#a815579582e36cf082c8822f311584bc1d90a224"
+  integrity sha512-SB4jxdUurqd1lFH+UKpv5HWAOrYwvT+x/goYwpDt9YFGaPYM5warN8grPi8U29g3GtBIIZ00bTXAHKRN0P9vNw==
   dependencies:
     "@builder.io/mitosis" "^0.0.45"
     "@oclif/command" "^1"
