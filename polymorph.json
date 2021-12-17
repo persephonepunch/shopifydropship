@@ -1,5 +1,5 @@
 {
-  "site": "https://polymorph-default-template.webflow.io/",
+  "site": "https://sl4.webflow.io/",
   "framework": "next",
   "components": "/components/polymorph",
   "css": "/styles/polymorph.css",
