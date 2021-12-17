@@ -23,47 +23,58 @@ function isUrlInternal(link){
 }
 
 // Replaces DOM nodes with React components
-function replace(node){
-  const attribs = node.attribs || {}
-
-  // Replace links with Next links
-  if(polymorphConfig.clientSideRouting && node.name === `a` && isUrlInternal(attribs.href)){
-    const { href, style, ...props } = attribs
-    if(props.class){
-      props.className = props.class
-      delete props.class
-    }
-    if(!style){
+function createReplace(placement){
+  return function replace(node){
+    const attribs = node.attribs || {}
+  
+    // Replace links with Next links
+    if(polymorphConfig.clientSideRouting && node.name === `a` && isUrlInternal(attribs.href)){
+      const { href, style, ...props } = attribs
+      if(props.class){
+        props.className = props.class
+        delete props.class
+      }
+      if(!style){
+        return (
+          <Link href={href}>
+            <a {...props}>
+              {!!node.children && !!node.children.length &&
+                domToReact(node.children, placement === `body` ? bodyOptions : headOptions)
+              }
+            </a>
+          </Link>
+        )
+      }
       return (
         <Link href={href}>
-          <a {...props}>
+          <a {...props} href={href} css={style}>
             {!!node.children && !!node.children.length &&
-              domToReact(node.children, parseOptions)
+              domToReact(node.children, placement === `body` ? bodyOptions : headOptions)
             }
           </a>
         </Link>
       )
     }
-    return (
-      <Link href={href}>
-        <a {...props} href={href} css={style}>
-          {!!node.children && !!node.children.length &&
-            domToReact(node.children, parseOptions)
-          }
-        </a>
-      </Link>
-    )
-  }
-
-  if(node.name === `img` && polymorphConfig.optimizeImages){
-    const { src, alt, style, ...props } = attribs
-    if(props.class){
-      props.className = props.class
-      delete props.class
-    }
-    if(props.width && props.height){
-
-      if(!style){
+  
+    if(node.name === `img` && polymorphConfig.optimizeImages){
+      const { src, alt, style, ...props } = attribs
+      if(props.class){
+        props.className = props.class
+        delete props.class
+      }
+      if(props.width && props.height){
+  
+        if(!style){
+          return (
+            <Image
+              {...props}
+              src={src}
+              alt={alt}
+              width={props.width}
+              height={props.height}
+            />
+          )
+        }
         return (
           <Image
             {...props}
@@ -71,50 +82,48 @@ function replace(node){
             alt={alt}
             width={props.width}
             height={props.height}
+            css={style}
           />
         )
       }
-      return (
-        <Image
-          {...props}
-          src={src}
-          alt={alt}
-          width={props.width}
-          height={props.height}
-          css={style}
-        />
-      )
     }
+  
+  
+    // Make Google Fonts scripts work
+    if(node.name === `script`){
+      let content = get(node, `children.0.data`, ``)
+      if(content && content.trim().indexOf(`WebFont.load(`) === 0){
+        content = `setTimeout(function(){${content}}, 1)`
+        return (
+          <script {...attribs} dangerouslySetInnerHTML={{__html: content}}></script>
+        )
+      }
+      // Get src
+      if(placement === `body` && attribs.src){
+        return (
+          <Script {...attribs}></Script>
+        )
+      }
+    }
+  
   }
-
-
-  // Make Google Fonts scripts work
-  if(node.name === `script`){
-    let content = get(node, `children.0.data`, ``)
-    if(content && content.trim().indexOf(`WebFont.load(`) === 0){
-      content = `setTimeout(function(){${content}}, 1)`
-      return (
-        <script {...attribs} dangerouslySetInnerHTML={{__html: content}}></script>
-      )
-    }
-    // Get src
-    if(attribs.src){
-      return (
-        <Script {...attribs}></Script>
-      )
-    }
-  }
-
 }
-const parseOptions = { replace }
+const headOptions = {
+  replace: createReplace(`head`),
+}
+const bodyOptions = {
+  replace: createReplace(`body`),
+}
+
+
 
 export default function Home(props) {
   return (
     <>
       <Head>
-        {parseHtml(props.headContent, parseOptions)}
+        {parseHtml(props.headContent, headOptions)}
       </Head>
-      {parseHtml(props.bodyContent, parseOptions)}
+      {parseHtml(props.bodyContent, bodyOptions)}
     </>
   )
 }
