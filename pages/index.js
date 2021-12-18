@@ -106,7 +106,7 @@ function createReplace(placement){
             <Script src='/polymorph/scripts.js' />
           )
         }
-        if(attribs.src.indexOf(`jquery`) > -1 && attribs.src.indexOf(`site=`) === -1){
+        if(attribs.src.indexOf(`jquery`) > -1 && attribs.src.indexOf(`site=`) > -1){
           return null
         }
         return (
