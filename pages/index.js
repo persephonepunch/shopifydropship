@@ -101,7 +101,7 @@ function createReplace(placement){
       // Get src
       if(placement === `body` && attribs.src){
         return (
-          <Script {...attribs}></Script>
+          <Script {...attribs} defer></Script>
         )
       }
     }
