@@ -1,21 +1,6 @@
 const cheerio = require(`cheerio`)
 const axios = require(`axios`).default
-
-const assetDomains = [
-	`assets.website-files.com`,
-	`assets-global.website-files.com`,
-	`uploads-ssl.webflow.com`,
-]
-
-
-function containsAssetDomain(str){
-	for(let i = 0; i < assetDomains.length; i++){
-		if(str.indexOf(assetDomains[i]) > -1){
-			return true
-		}
-	}
-	return false
-}
+const containsAssetDomain = require(`./contains-asset-domain`)
 
 // For Node.js use outside of Polymorph
 module.exports = async function fetchWebflowPage(config) {

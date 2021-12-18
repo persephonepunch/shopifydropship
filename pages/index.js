@@ -5,6 +5,7 @@ import Script from 'next/script'
 import parseHtml, { domToReact } from 'html-react-parser'
 import get from 'lodash/get'
 import React from 'react'
+import containsAssetDomain from '../helpers/contains-asset-domain'
 import fetchWebflowPage from '../helpers/fetch-webflow-page'
 import polymorphConfig from '../polymorph.json'
 
@@ -92,14 +93,19 @@ function createReplace(placement){
     // Make Google Fonts scripts work
     if(node.name === `script`){
       let content = get(node, `children.0.data`, ``)
-      if(content && content.trim().indexOf(`WebFont.load(`) === 0){
-        content = `setTimeout(function(){${content}}, 1)`
-        return (
-          <script {...attribs} dangerouslySetInnerHTML={{__html: content}}></script>
-        )
-      }
+      // if(content && content.trim().indexOf(`WebFont.load(`) === 0){
+      //   content = `setTimeout(function(){${content}}, 1)`
+      //   return (
+      //     <script {...attribs} dangerouslySetInnerHTML={{__html: content}}></script>
+      //   )
+      // }
       // Get src
       if(placement === `body` && attribs.src){
+        if(containsAssetDomain(attribs.src)){
+          return (
+            <Script src='/polymorph/scripts.js' />
+          )
+        }
         return (
           <Script {...attribs}></Script>
         )

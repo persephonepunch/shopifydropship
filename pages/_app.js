@@ -39,7 +39,6 @@ function App(props) {
     <Head>
       <link href="/polymorph/icons/favicon.png" rel="shortcut icon" type="image/x-icon" />
       <link href="/polymorph/icons/webclip.png" rel="apple-touch-icon" />
-      <meta name="description" content="Polymorph is a CLI tool for converting Webflow projects to UI libraries for various frameworks including React, Svelte, Vue.js, Shopify Liquid, Angular, SolidJS, Web Components, and JavaScript." />
     </Head>
 
     <Component {...pageProps} />
