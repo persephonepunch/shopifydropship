@@ -91,29 +91,29 @@ function createReplace(placement){
   
   
     // Make Google Fonts scripts work
-    if(node.name === `script`){
-      if(placement === `body`){
-        if(attribs.src){
-          if(containsAssetDomain(attribs.src)){
-            return (
-              <Script src='/polymorph/scripts.js' />
-            )
-          }
-          if(attribs.src.indexOf(`jquery`) > -1 && attribs.src.indexOf(`site=`) > -1){
-            console.log(`Removing jQuery: ${attribs.src}`)
-            return null
-          }
-          return (
-            <Script {...attribs}></Script>
-          )
-        }
-        let content = get(node, `children.0.data`, ``)
-        return(
-          <Script {...attribs} dangerouslySetInnerHTML={{__html: content}}></Script>
-        )
+    // if(node.name === `script`){
+    //   if(placement === `body`){
+    //     if(attribs.src){
+    //       if(containsAssetDomain(attribs.src)){
+    //         return (
+    //           <Script src='/polymorph/scripts.js' />
+    //         )
+    //       }
+    //       if(attribs.src.indexOf(`jquery`) > -1 && attribs.src.indexOf(`site=`) > -1){
+    //         console.log(`Removing jQuery: ${attribs.src}`)
+    //         return null
+    //       }
+    //       return (
+    //         <Script {...attribs}></Script>
+    //       )
+    //     }
+    //     let content = get(node, `children.0.data`, ``)
+    //     return(
+    //       <Script {...attribs} dangerouslySetInnerHTML={{__html: content}}></Script>
+    //     )
         
-      }
-    }
+    //   }
+    // }
   
   }
 }
