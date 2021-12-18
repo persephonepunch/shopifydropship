@@ -13,5 +13,6 @@
 
   "removeBranding": true,
   "optimizeImages": false,
-  "clientSideRouting": true
+  "clientSideRouting": true,
+  "optimizeJsLoading": false
 }
