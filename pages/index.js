@@ -91,36 +91,39 @@ function createReplace(placement){
   
   
     // Better loading for scripts, but can change the order they're loaded in at
-    if(polymorphConfig.optimizeJsLoading && node.name === `script`){
-      if(placement === `body`){
-        if(attribs.src){
-          if(containsAssetDomain(attribs.src)){
+    if(node.name === `script`){
+
+      if(polymorphConfig.optimizeJsLoading){
+        if(placement === `body`){
+          if(attribs.src){
+            if(containsAssetDomain(attribs.src)){
+              return (
+                <Script src='/polymorph/scripts.js' />
+              )
+            }
+            if(attribs.src.indexOf(`jquery`) > -1 && attribs.src.indexOf(`site=`) > -1){
+              return null
+            }
             return (
-              <Script src='/polymorph/scripts.js' />
+              <Script {...attribs}></Script>
             )
           }
-          if(attribs.src.indexOf(`jquery`) > -1 && attribs.src.indexOf(`site=`) > -1){
-            return null
-          }
+          let content = get(node, `children.0.data`, ``)
+          return(
+            <Script {...attribs} dangerouslySetInnerHTML={{__html: content}}></Script>
+          )
+          
+        }
+      }
+      else if(attribs.src){
+        if(containsAssetDomain(attribs.src)){
           return (
-            <Script {...attribs}></Script>
+            <script src='/polymorph/scripts.js' />
           )
         }
-        let content = get(node, `children.0.data`, ``)
-        return(
-          <Script {...attribs} dangerouslySetInnerHTML={{__html: content}}></Script>
-        )
-        
-      }
-    }
-    else if(attribs.src){
-      if(containsAssetDomain(attribs.src)){
-        return (
-          <script src='/polymorph/scripts.js' />
-        )
-      }
-      if(attribs.src.indexOf(`jquery`) > -1 && attribs.src.indexOf(`site=`) > -1){
-        return null
+        if(attribs.src.indexOf(`jquery`) > -1 && attribs.src.indexOf(`site=`) > -1){
+          return null
+        }
       }
     }
   
