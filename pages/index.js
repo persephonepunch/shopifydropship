@@ -100,7 +100,6 @@ function createReplace(placement){
             )
           }
           if(attribs.src.indexOf(`jquery`) > -1 && attribs.src.indexOf(`site=`) > -1){
-            console.log(`Removing jQuery: ${attribs.src}`)
             return null
           }
           return (
@@ -112,6 +111,16 @@ function createReplace(placement){
           <Script {...attribs} dangerouslySetInnerHTML={{__html: content}}></Script>
         )
         
+      }
+    }
+    else{
+      if(containsAssetDomain(attribs.src)){
+        return (
+          <script src='/polymorph/scripts.js' />
+        )
+      }
+      if(attribs.src.indexOf(`jquery`) > -1 && attribs.src.indexOf(`site=`) > -1){
+        return null
       }
     }
   
