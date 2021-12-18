@@ -43,7 +43,7 @@ function App(props) {
     </Head>
 
     <Component {...pageProps} />
-    <Script src='/polymorph/scripts.js' defer />
+    <Script src='/polymorph/scripts.js' />
   </>
 }
 
