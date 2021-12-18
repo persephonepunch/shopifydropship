@@ -12,6 +12,6 @@
   "minifyJs": false,
 
   "removeBranding": true,
-  "optimizeImages": true,
+  "optimizeImages": false,
   "clientSideRouting": true
 }
