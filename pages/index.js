@@ -5,7 +5,7 @@ import Script from 'next/script'
 import parseHtml, { domToReact } from 'html-react-parser'
 import get from 'lodash/get'
 import React from 'react'
-import fetchWebflowPage from '@smarterlabs/polymorph/build/fetch-webflow-page'
+import fetchWebflowPage from '../helpers/fetch-webflow-page'
 import polymorphConfig from '../polymorph.json'
 
 // Determines if URL is internal or external

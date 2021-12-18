@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "clean": "del components/polymorph && del styles/polymorph.css && del public/polymorph && del helpers/polymorph",
-    "dev": "yarn polymorph && next dev",
+    "dev": "next dev",
     "build": "yarn polymorph && next build",
     "helpers": "yarn helpers:ensure-header-footer && yarn helpers:sitemap",
     "helpers:sitemap": "node helpers/generate-sitemap.js",
@@ -16,7 +16,9 @@
   "dependencies": {
     "@forevolve/bootstrap-dark": "^2.1.0",
     "@meronex/icons": "^4.0.0",
+    "axios": "^0.24.0",
     "bootstrap": "^5.1.3",
+    "cheerio": "^1.0.0-rc.10",
     "firebase-admin": "^10.0.0",
     "formik": "^2.2.9",
     "html-react-parser": "^1.4.3",
