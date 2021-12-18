@@ -113,7 +113,7 @@ function createReplace(placement){
         
       }
     }
-    else{
+    else if(attribs.src){
       if(containsAssetDomain(attribs.src)){
         return (
           <script src='/polymorph/scripts.js' />
