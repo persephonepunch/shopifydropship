@@ -12,6 +12,9 @@ async function generateSitemap(){
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       ${pages
         .map((url) => {
+          url = url
+            .replace(/\=/g, `/`)
+            .replace(/\?/g, `/`)
           return `
             <url>
               <loc>${baseUrl + url}</loc>

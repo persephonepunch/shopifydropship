@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import Head from "next/head"
-import Script from 'next/script'
 import { useRouter } from 'next/router'
 import '../styles/polymorph.css'
 
@@ -36,13 +35,12 @@ function App(props) {
 
 
   return <>
-    <Head>
+    {/* <Head>
       <link href="/polymorph/icons/favicon.png" rel="shortcut icon" type="image/x-icon" />
       <link href="/polymorph/icons/webclip.png" rel="apple-touch-icon" />
-    </Head>
+    </Head> */}
 
     <Component {...pageProps} />
-    {/* <Script src='/polymorph/scripts.js' /> */}
   </>
 }
 

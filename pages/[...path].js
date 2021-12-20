@@ -10,10 +10,18 @@ export async function getStaticPaths() {
 
 	// Add all pages
 	for(let link of pageList){
+		const originalLink = link
+		link = link
+			.replace(/\=/g, `/`)
+			.replace(/\?/g, `/`)
 		const path = link.replace(`/`, ``).split(`/`)
 		if(!path.length || !path[0]) continue
+
+
 		paths.push({
-			params: { path }
+			params: {
+				path,
+			}
 		})
 	}
 

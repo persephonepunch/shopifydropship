@@ -1,13 +1,17 @@
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 import Script from 'next/script'
+import { useRouter } from 'next/router'
 import parseHtml, { domToReact } from 'html-react-parser'
 import get from 'lodash/get'
 import React from 'react'
 import containsAssetDomain from '../helpers/contains-asset-domain'
 import fetchWebflowPage from '../helpers/fetch-webflow-page'
 import polymorphConfig from '../polymorph.json'
+import pageList from '../helpers/polymorph/page-list.json'
+
 
 // Determines if URL is internal or external
 function isUrlInternal(link){
@@ -24,16 +28,19 @@ function isUrlInternal(link){
 }
 
 // Replaces DOM nodes with React components
-function createReplace(placement){
+function createReplace({ placement, url }){
   return function replace(node){
     const attribs = node.attribs || {}
   
     // Replace links with Next links
     if(polymorphConfig.clientSideRouting && node.name === `a` && isUrlInternal(attribs.href)){
-      const { href, style, ...props } = attribs
+      let { href, style, ...props } = attribs
       if(props.class){
         props.className = props.class
         delete props.class
+      }
+      if(href.indexOf(`?`) === 0){
+        href = url + href
       }
       if(!style){
         return (
@@ -138,21 +145,40 @@ const bodyOptions = {
 
 
 
-export default function Home(props) {
+export default function WebflowPage(props) {
+  const [options, setOptions] = useState({})
+  const router = useRouter()
+  
+  useEffect(() => {
+    setOptions({
+      head: createReplace({
+        placement: `head`,
+        url: props.url,
+      }),
+      body: createReplace({
+        placement: `body`,
+        url: props.url,
+      }),
+    })
+  }, [props.url])
+
   return (
     <>
       <Head>
-        {parseHtml(props.headContent, headOptions)}
+        {parseHtml(props.headContent, options.head)}
       </Head>
-      {parseHtml(props.bodyContent, bodyOptions)}
+      {parseHtml(props.bodyContent, options.body)}
     </>
   )
 }
 
 export async function getStaticProps(ctx) {
+  console.log(`ctx`, ctx)
 
   // Use path to determine Webflow path
   let url = get(ctx, `params.path`, [])
+  const originalLink = get(ctx, `params.originalLink`)
+  console.log(`originalLink`, originalLink)
   url = url.join(`/`)
   if(url.charAt(0) !== `/`){
     url = `/${url}`
@@ -160,6 +186,15 @@ export async function getStaticProps(ctx) {
   let webflowUrl = polymorphConfig.site
   if(webflowUrl.charAt(webflowUrl.length - 1) === `/`){
     webflowUrl = webflowUrl.slice(0, -1)
+  }
+
+  // If not in page list, it's probably a paginated link that needs to be reassembled
+  if(pageList.indexOf(url) === -1){
+    url = url.split(`/`)
+    const pageNumber = url.pop()
+    const paramName = url.pop()
+    url = url.join(`/`)
+    url = `${url}?${paramName}=${pageNumber}`
   }
   url = webflowUrl + url
 
