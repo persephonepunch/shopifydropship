@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import Head from "next/head"
 import { useRouter } from 'next/router'
-import '../styles/polymorph.css'
+// import '../styles/polymorph.css'
 
 function routeChangeStartHandler(){
   // Close nav buttons
