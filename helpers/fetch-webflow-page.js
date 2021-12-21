@@ -39,6 +39,12 @@ module.exports = async function fetchWebflowPage(config) {
       webflowStylesheetUrl = href
       $el.remove()
     }
+
+    // Remove fonts
+    // const type = $el.attr(`type`)
+    // if(type && type.indexOf(`font`) > -1){
+    //   $el.remove()
+    // }
   })
 
 
