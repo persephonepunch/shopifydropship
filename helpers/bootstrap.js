@@ -16,6 +16,15 @@ async function clean(){
 	await remove(dist)
 }
 
+async function fetchHomepage(){
+	const url = `${site}/`
+	const html = await axios.get(url).catch(err => {
+		throw err
+	})
+	const $ = cheerio.load(html.data)
+	return $
+}
+
 async function getAllLinks(queue = [], crawled = [], links = []){
 	if(!queue.length){
 		return links
@@ -64,9 +73,21 @@ async function createPageList(){
 	await outputJson(`${dist}/page-list.json`, links, { spaces: 2 })
 }
 
+async function createMetaData($){
+	const htmlAttributes = $('html').attr()
+	delete htmlAttributes[`data-wf-domain`]
+	const metaData = {
+		htmlAttributes,
+		bodyAttributes: $(`body`).attr(),
+	}
+	await outputJson(`${dist}/meta.json`, metaData, { spaces: 2 })
+}
+
 async function bootstrap(){
 	await clean()
 	await createPageList()
+	const $ = await fetchHomepage()
+	await createMetaData($)
 }
 
 bootstrap().catch(err => {
