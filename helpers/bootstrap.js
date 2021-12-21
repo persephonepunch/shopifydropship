@@ -13,10 +13,12 @@ while(site[site.length - 1] === `/`){
 }
 
 async function clean(){
+	console.log(`Cleaning...`)
 	await remove(dist)
 }
 
 async function fetchHomepage(){
+	console.log(`Fetching site...`)
 	const url = `${site}/`
 	const html = await axios.get(url).catch(err => {
 		throw err
@@ -26,6 +28,7 @@ async function fetchHomepage(){
 }
 
 async function getAllLinks(queue = [], crawled = [], links = []){
+	console.log(`Getting all links...`)
 	if(!queue.length){
 		return links
 	}
@@ -64,8 +67,16 @@ async function createPageList(){
 	const sitemapLinks = await getSitemapLinks(sitemapUrl)
 	const crawlLinks = await getAllLinks([`${site}/`])
 	
-	const links = sitemapLinks.map(link => link.replace(site, ``))
+	const links = sitemapLinks.map(link => {
+		// Remove domain from link
+		const parsed = new URL(link)
+		link = parsed.pathname + parsed.search
+		return link
+	})
 	for(link of crawlLinks){
+		// Remove domain from link
+		const parsed = new URL(link)
+		link = parsed.pathname + parsed.search
 		if(links.indexOf(link) === -1){
 			links.push(link)
 		}
@@ -74,6 +85,7 @@ async function createPageList(){
 }
 
 async function createMetaData($){
+	console.log(`Creating metadata...`)
 	const htmlAttributes = $('html').attr()
 	delete htmlAttributes[`data-wf-domain`]
 	const metaData = {
