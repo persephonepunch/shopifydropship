@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
-import Head from "next/head"
 import { useRouter } from 'next/router'
-import '../styles/polymorph.css'
+import '../.exolayer/styles.css'
 
 function routeChangeStartHandler(){
   // Close nav buttons
@@ -34,14 +33,9 @@ function App(props) {
   }, [])
 
 
-  return <>
-    {/* <Head>
-      <link href="/polymorph/icons/favicon.png" rel="shortcut icon" type="image/x-icon" />
-      <link href="/polymorph/icons/webclip.png" rel="apple-touch-icon" />
-    </Head> */}
-
+  return (
     <Component {...pageProps} />
-  </>
+  )
 }
 
 export default App

@@ -1,5 +1,5 @@
 import DynamicPath, { getStaticProps } from './index'
-import pageList from '../helpers/polymorph/page-list.json'
+import pageList from '../.exolayer/page-list.json'
 
 export default DynamicPath
 

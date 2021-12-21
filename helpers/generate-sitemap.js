@@ -1,9 +1,9 @@
-const pages = require('../helpers/polymorph/page-list.json')
-const config = require('../polymorph.json')
+const pages = require('../.exolayer/page-list.json')
+const config = require('../exolayer.config')
 const { outputFile } = require('fs-extra')
 
 async function generateSitemap(){
-  let baseUrl = config.publishUrl || process.env.URL || `http://localhost:3000`
+  let baseUrl = config.publishUrl || process.env.URL || process.env.VERCEL_URL || process.env.DEPLOY_URL || `http://localhost:3000`
   if(baseUrl.charAt(baseUrl.length - 1) == `/`){
     baseUrl = baseUrl.substring(0, baseUrl.length - 1)
   }

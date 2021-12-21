@@ -35,10 +35,7 @@ yarn-error.log*
 .vercel
 !public
 
-# Polymorph-generated files
-components/polymorph
-public/polymorph
-helpers/polymorph
-public/sitemap.xml
-styles/polymorph.css
+# Exolayer-generated files
 .exolayer
+public/sitemap.xml
+public/exolayer.js

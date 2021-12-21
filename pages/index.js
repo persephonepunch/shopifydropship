@@ -9,8 +9,8 @@ import get from 'lodash/get'
 import React from 'react'
 import containsAssetDomain from '../helpers/contains-asset-domain'
 import fetchWebflowPage from '../helpers/fetch-webflow-page'
-import polymorphConfig from '../polymorph.json'
-import pageList from '../helpers/polymorph/page-list.json'
+import config from '../exolayer.config'
+import pageList from '../.exolayer/page-list.json'
 
 
 // Determines if URL is internal or external
@@ -33,7 +33,7 @@ function createReplace({ placement, url }){
     const attribs = node.attribs || {}
   
     // Replace links with Next links
-    if(polymorphConfig.clientSideRouting && node.name === `a` && isUrlInternal(attribs.href)){
+    if(config.clientRouting && node.name === `a` && isUrlInternal(attribs.href)){
       let { href, style, ...props } = attribs
       if(props.class){
         props.className = props.class
@@ -42,12 +42,15 @@ function createReplace({ placement, url }){
       if(href.indexOf(`?`) === 0){
         href = url + href
       }
+      console.log(`Replacing link:`, href)
       if(!style){
         return (
           <Link href={href}>
             <a {...props}>
               {!!node.children && !!node.children.length &&
-                domToReact(node.children, placement === `body` ? bodyOptions : headOptions)
+                domToReact(node.children, {
+                  replace: createReplace({ placement, url }),
+                })
               }
             </a>
           </Link>
@@ -57,14 +60,16 @@ function createReplace({ placement, url }){
         <Link href={href}>
           <a {...props} href={href} css={style}>
             {!!node.children && !!node.children.length &&
-              domToReact(node.children, placement === `body` ? bodyOptions : headOptions)
+              domToReact(node.children, {
+                replace: createReplace({ placement, url }),
+              })
             }
           </a>
         </Link>
       )
     }
   
-    if(node.name === `img` && polymorphConfig.optimizeImages){
+    if(node.name === `img` && config.optimizeImages){
       const { src, alt, style, ...props } = attribs
       if(props.class){
         props.className = props.class
@@ -99,23 +104,37 @@ function createReplace({ placement, url }){
   
     // Better loading for scripts, but can change the order they're loaded in at
     if(node.name === `script`){
+      let content = get(node, `children.0.data`)
+      if(content && content.trim().indexOf(`WebFont.load(`) === 0){
+        content = `setTimeout(function(){console.log("webfont", window.WebFont);${content}}, 100)`
+        if(config.optimizeJsLoading){
+          return (
+            <Script {...attribs} dangerouslySetInnerHTML={{ __html: content }} />
+          )
+        }
+        else{
+          console.log(`content`, content)
+          return (
+            <script {...attribs} dangerouslySetInnerHTML={{ __html: content }} />
+          )
+        }
+      }
 
-      if(polymorphConfig.optimizeJsLoading){
+      if(config.optimizeJsLoading){
         if(placement === `body`){
           if(attribs.src){
             if(containsAssetDomain(attribs.src)){
               return (
-                <Script src='/polymorph/scripts.js' />
+                <Script src='/exolayer.js' />
               )
             }
-            if(attribs.src.indexOf(`jquery`) > -1 && attribs.src.indexOf(`site=`) > -1){
-              return null
-            }
+            // if(attribs.src.indexOf(`jquery`) > -1 && attribs.src.indexOf(`site=`) > -1){
+            //   return null
+            // }
             return (
               <Script {...attribs}></Script>
             )
           }
-          let content = get(node, `children.0.data`, ``)
           return(
             <Script {...attribs} dangerouslySetInnerHTML={{__html: content}}></Script>
           )
@@ -125,29 +144,21 @@ function createReplace({ placement, url }){
       else if(attribs.src){
         if(containsAssetDomain(attribs.src)){
           return (
-            <script src='/polymorph/scripts.js' />
+            <script src='/exolayer.js' />
           )
         }
-        if(attribs.src.indexOf(`jquery`) > -1 && attribs.src.indexOf(`site=`) > -1){
-          return null
-        }
+        // if(attribs.src.indexOf(`jquery`) > -1 && attribs.src.indexOf(`site=`) > -1){
+        //   return null
+        // }
       }
     }
   
   }
 }
-const headOptions = {
-  replace: createReplace(`head`),
-}
-const bodyOptions = {
-  replace: createReplace(`body`),
-}
-
 
 
 export default function WebflowPage(props) {
-  const [options, setOptions] = useState({})
-  const router = useRouter()
+  const [options, setOptions] = useState()
   
   useEffect(() => {
     setOptions({
@@ -165,9 +176,9 @@ export default function WebflowPage(props) {
   return (
     <>
       <Head>
-        {parseHtml(props.headContent, options.head)}
+        {!!options && parseHtml(props.headContent, { replace: options.head })}
       </Head>
-      {parseHtml(props.bodyContent, options.body)}
+      {!!options && parseHtml(props.bodyContent, { replace: options.body })}
     </>
   )
 }
@@ -183,7 +194,7 @@ export async function getStaticProps(ctx) {
   if(url.charAt(0) !== `/`){
     url = `/${url}`
   }
-  let webflowUrl = polymorphConfig.site
+  let webflowUrl = config.site
   if(webflowUrl.charAt(webflowUrl.length - 1) === `/`){
     webflowUrl = webflowUrl.slice(0, -1)
   }

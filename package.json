@@ -3,15 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "clean": "del components/polymorph && del styles/polymorph.css && del public/polymorph && del helpers/polymorph",
     "dev": "next dev",
     "bootstrap": "node ./helpers/bootstrap.js",
-    "build": "yarn polymorph && next build",
+    "build": "yarn run bootstrap && next build",
     "helpers": "yarn helpers:ensure-header-footer && yarn helpers:sitemap",
     "helpers:sitemap": "node helpers/generate-sitemap.js",
     "helpers:ensure-header-footer": "node helpers/ensure-header-and-footer.js",
     "lint": "next lint",
-    "polymorph": "yarn run clean && dotenv -e ./.env -- polymorph build && yarn helpers",
     "start": "next start"
   },
   "dependencies": {
@@ -36,7 +34,6 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@smarterlabs/polymorph": "0.2.19",
     "del-cli": "^4.0.1",
     "dotenv-cli": "^4.0.0",
     "eslint": "8.4.1",

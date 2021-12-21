@@ -2,7 +2,6 @@ const cheerio = require(`cheerio`)
 const axios = require(`axios`).default
 const containsAssetDomain = require(`./contains-asset-domain`)
 
-// For Node.js use outside of Polymorph
 module.exports = async function fetchWebflowPage(config) {
 
   // Fetch HTML
