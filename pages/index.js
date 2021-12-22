@@ -106,7 +106,7 @@ function createReplace({ placement, url }){
     if(node.name === `script`){
       let content = get(node, `children.0.data`)
       if(content && content.trim().indexOf(`WebFont.load(`) === 0){
-        content = `setTimeout(function(){console.log("webfont", window.WebFont);${content}}, 100)`
+        // content = `setTimeout(function(){console.log("webfont", window.WebFont);${content}}, 100)`
         if(config.optimizeJsLoading){
           return (
             <Script {...attribs} dangerouslySetInnerHTML={{ __html: content }} />
@@ -147,10 +147,20 @@ function createReplace({ placement, url }){
             <script src='/exolayer.js' />
           )
         }
+        else{
+          return(
+            <script {...attribs}></script>
+          )
+        }
         // if(attribs.src.indexOf(`jquery`) > -1 && attribs.src.indexOf(`site=`) > -1){
         //   return null
         // }
       }
+    }
+    else{
+      return (
+        <script {...attribs} dangerouslySetInnerHTML={{ __html: content }} />
+      )
     }
   
   }
