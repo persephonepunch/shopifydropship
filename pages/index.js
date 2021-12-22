@@ -3,14 +3,12 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 import Script from 'next/script'
-import { useRouter } from 'next/router'
 import parseHtml, { domToReact } from 'html-react-parser'
 import get from 'lodash/get'
 import React from 'react'
 import containsAssetDomain from '../helpers/contains-asset-domain'
 import fetchWebflowPage from '../helpers/fetch-webflow-page'
 import config from '../exolayer.config'
-import pageList from '../.exolayer/page-list.json'
 
 
 // Determines if URL is internal or external
@@ -201,27 +199,8 @@ export async function getStaticProps(ctx) {
   console.log(`ctx`, ctx)
 
   // Use path to determine Webflow path
-  let url = get(ctx, `params.path`, [`404`])
+  let url = get(ctx, `params.path`, [`/`])
   url = url.join(`/`)
-  if(url.charAt(0) !== `/`){
-    url = `/${url}`
-  }
-  let webflowUrl = config.site
-  if(webflowUrl.charAt(webflowUrl.length - 1) === `/`){
-    webflowUrl = webflowUrl.slice(0, -1)
-  }
-
-  // If not in page list, it's probably a paginated link that needs to be reassembled
-  if(pageList.indexOf(url) === -1 && url !== `/404`){
-    url = url.split(`/`)
-    const pageNumber = url.pop()
-    const paramName = url.pop()
-    url = url.join(`/`)
-    url = `${url}?${paramName}=${pageNumber}`
-  }
-  url = webflowUrl + url
-
-  console.log(`Fetching`, url)
 
   const props = await fetchWebflowPage({ url })
 

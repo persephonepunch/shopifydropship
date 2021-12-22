@@ -1,14 +1,37 @@
 const cheerio = require(`cheerio`)
 const axios = require(`axios`).default
 const containsAssetDomain = require(`./contains-asset-domain`)
+const config = require('../exolayer.config')
+const pageList = require('../.exolayer/page-list.json')
 
-module.exports = async function fetchWebflowPage(config) {
+module.exports = async function fetchWebflowPage({ url }) {
+
+  if(url.charAt(0) !== `/`){
+    url = `/${url}`
+  }
+
+  let webflowUrl = config.site
+  if(webflowUrl.charAt(webflowUrl.length - 1) === `/`){
+    webflowUrl = webflowUrl.slice(0, -1)
+  }
+
+  // If not in page list, it's probably a paginated link that needs to be reassembled
+  if(pageList.indexOf(url) === -1 && url !== `/404`){
+    url = url.split(`/`)
+    const pageNumber = url.pop()
+    const paramName = url.pop()
+    url = url.join(`/`)
+    url = `${url}?${paramName}=${pageNumber}`
+  }
+  url = webflowUrl + url
+
+  console.log(`Fetching`, url)
 
   // Fetch HTML
-  console.log(`Fetching ${config.url}`)
-  let res = await axios(config.url)
+  console.log(`Fetching ${url}`)
+  let res = await axios(url)
     .catch(err => {
-      console.log(`Error fetching ${config.url}`)
+      console.log(`Error fetching ${url}`)
       console.error(err)
     })
   const html = res.data
@@ -63,8 +86,8 @@ module.exports = async function fetchWebflowPage(config) {
   // }
 
   // Get path
-  const url = new URL(config.url)
-  const pathname = url.pathname
+  const parseUrl = new URL(url)
+  const pathname = parseUrl.pathname
 
 
   $(`a`).each((i, el) => {
@@ -101,6 +124,6 @@ module.exports = async function fetchWebflowPage(config) {
     bodyContent,
     headContent,
     webflowStylesheet,
-    url: config.url,
+    url,
   }
 }
