@@ -212,7 +212,7 @@ export async function getStaticProps(ctx) {
   }
 
   // If not in page list, it's probably a paginated link that needs to be reassembled
-  if(pageList.indexOf(url) === -1){
+  if(pageList.indexOf(url) === -1 && url.indexOf(`/404`) === -1){
     url = url.split(`/`)
     const pageNumber = url.pop()
     const paramName = url.pop()

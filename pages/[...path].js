@@ -6,7 +6,11 @@ export default DynamicPath
 export { getStaticProps }
 
 export async function getStaticPaths() {
-	const paths = []
+	const paths = [{
+		params: {
+			path: [`404`],
+		}
+	}]
 
 	// Add all pages
 	for(let link of pageList){
