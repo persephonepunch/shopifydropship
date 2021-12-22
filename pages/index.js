@@ -201,7 +201,7 @@ export async function getStaticProps(ctx) {
   console.log(`ctx`, ctx)
 
   // Use path to determine Webflow path
-  let url = get(ctx, `params.path`, [])
+  let url = get(ctx, `params.path`, [`404`])
   url = url.join(`/`)
   if(url.charAt(0) !== `/`){
     url = `/${url}`
@@ -212,7 +212,7 @@ export async function getStaticProps(ctx) {
   }
 
   // If not in page list, it's probably a paginated link that needs to be reassembled
-  if(pageList.indexOf(url) === -1 && url.indexOf(`/404`) === -1){
+  if(pageList.indexOf(url) === -1 && url !== `/404`){
     url = url.split(`/`)
     const pageNumber = url.pop()
     const paramName = url.pop()
@@ -220,6 +220,8 @@ export async function getStaticProps(ctx) {
     url = `${url}?${paramName}=${pageNumber}`
   }
   url = webflowUrl + url
+
+  console.log(`Fetching`, url)
 
   const props = await fetchWebflowPage({ url })
 
