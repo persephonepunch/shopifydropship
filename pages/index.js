@@ -31,6 +31,10 @@ function isUrlInternal(link){
 function createReplace({ placement, url }){
   return function replace(node){
     const attribs = node.attribs || {}
+    if(attribs.class){
+      attribs.className = attribs.class
+      delete attribs.class
+    }
   
     // Replace links with Next links
     if(config.clientRouting && node.name === `a` && isUrlInternal(attribs.href)){
@@ -156,11 +160,11 @@ function createReplace({ placement, url }){
         //   return null
         // }
       }
-    }
-    else{
-      return (
-        <script {...attribs} dangerouslySetInnerHTML={{ __html: content }} />
-      )
+      else if(content){
+        return (
+          <script {...attribs} dangerouslySetInnerHTML={{ __html: content }}></script>
+        )
+      }
     }
   
   }
