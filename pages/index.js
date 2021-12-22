@@ -202,8 +202,6 @@ export async function getStaticProps(ctx) {
 
   // Use path to determine Webflow path
   let url = get(ctx, `params.path`, [])
-  const originalLink = get(ctx, `params.originalLink`)
-  console.log(`originalLink`, originalLink)
   url = url.join(`/`)
   if(url.charAt(0) !== `/`){
     url = `/${url}`
@@ -228,6 +226,6 @@ export async function getStaticProps(ctx) {
   // Send HTML to component via props
   return {
     props,
-    revalidate: false,
+    // revalidate: false,
   }
 }
