@@ -3,7 +3,7 @@ const axios = require(`axios`)
 const cheerio = require(`cheerio`)
 const UglifyJS = require("uglify-js")
 const { outputFile, outputJson, remove } = require(`fs-extra`)
-const config = require(`../exolayer.config`)
+const config = require(`../config`)
 
 // Default Webflow CDNs
 const assetDomains = [
@@ -13,7 +13,7 @@ const assetDomains = [
 	`global-uploads.webflow.com`,
 ]
 
-const dist = `.exolayer`
+const dist = `.design-sync`
 
 // console.log(`config`, config)
 
@@ -27,7 +27,7 @@ async function clean(){
 	console.log(`Cleaning...`)
 	await Promise.all([
 		remove(dist),
-		remove(`public/exolayer.js`),
+		remove(`public/design-sync.js`),
 	])
 }
 
@@ -187,7 +187,7 @@ async function fetchJs($, assetDomains){
 		const jqueryResponse = await axios.get(jqueryUrl)
 		const jqueryData = jqueryResponse.data
 
-		const filepath = `public/exolayer.js`
+		const filepath = `public/design-sync.js`
 		const response = await axios.get(jsUrl)
 		let data = jqueryData + `\n\n` + response.data
 

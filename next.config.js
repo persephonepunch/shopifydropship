@@ -1,4 +1,4 @@
-const domains = require(`./.exolayer/asset-domains.json`)
+const domains = require(`./.design-sync/asset-domains.json`)
 
 module.exports = {
   reactStrictMode: true,

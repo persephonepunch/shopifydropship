@@ -1,5 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-import meta from '../.exolayer/meta.json'
+import meta from '../.design-sync/meta.json'
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -14,7 +14,7 @@ class MyDocument extends Document {
         <body {...meta.bodyAttributes}>
           <Main />
           <NextScript />
-          <script src='/exolayer.js' defer></script>
+          <script src='/design-sync.js' defer></script>
         </body>
       </Html>
     )

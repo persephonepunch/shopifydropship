@@ -8,8 +8,7 @@ import get from 'lodash/get'
 import React from 'react'
 import containsAssetDomain from '../helpers/contains-asset-domain'
 import fetchWebflowPage from '../helpers/fetch-webflow-page'
-import config from '../exolayer.config'
-
+import config from '../design-sync/config'
 
 // Determines if URL is internal or external
 function isUrlInternal(link){
@@ -191,7 +190,7 @@ function createReplace({ placement, url }){
       else if(attribs.src){
         if(containsAssetDomain(attribs.src)){
           return (
-            <script src='/exolayer.js' />
+            <script src='/design-sync.js' />
           )
         }
         else{
