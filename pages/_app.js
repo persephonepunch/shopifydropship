@@ -9,29 +9,16 @@ function routeChangeStartHandler(){
     el.click()
   }
 }
-function routeChangeHandler(){
-  if(window.Webflow){
-    window.Webflow.ready()
-  }
-}
 
 function App(props) {
   const { Component, pageProps } = props
   const router = useRouter()
-
   useEffect(() => {
-
     router.events.on('routeChangeStart', routeChangeStartHandler)
-    router.events.on('routeChangeComplete', routeChangeHandler)
-    router.events.on('routeChangeError', routeChangeHandler)
-
     return () => {
       router.events.off('routeChangeStart', routeChangeStartHandler)
-      router.events.off('routeChangeComplete', routeChangeHandler)
-      router.events.off('routeChangeError', routeChangeHandler)
-  };
+  }
   }, [])
-
 
   return (
     <Component {...pageProps} />

@@ -1,15 +1,55 @@
-import DynamicPath, { getStaticProps } from './index'
+import DynamicPath from './index'
+import get from 'lodash/get'
+import fetchWebflowPage from '../helpers/fetch-webflow-page'
 import pageList from '../.exolayer/page-list.json'
+import config from '../exolayer.config.json'
 
 export default DynamicPath
 
-export { getStaticProps }
+export async function getStaticProps(ctx) {
+
+	// Use path to determine Webflow path
+	let url = get(ctx, `params.path`)
+	url = url.join(`/`)
+
+
+ 	 // If not in page list, it's probably a paginated link that needs to be reassembled
+	if(pageList.indexOf(`/${url}`) === -1 && url !== `404`){
+		url = url.split(`/`)
+		const pageNumber = url.pop()
+		const paramName = url.pop()
+		url = url.join(`/`)
+		url = `${url}?${paramName}=${pageNumber}`
+	}
+
+	if(pageList.indexOf(`/${url}`) === -1){
+		console.log(`Path not in page list: ${url}`)
+		return{
+			notFound: true,
+			revalidate: false,
+		}
+	}
+ 
+	const props = await fetchWebflowPage({ url })
+ 
+	// Send HTML to component via props
+	return {
+	  props,
+	  revalidate: false,
+	}
+ }
 
 export async function getStaticPaths() {
 	const paths = []
 
-	// Add all pages
+	// Limit so builds don't take forever for large sites
+	const limit = 200
+	let i = 0
 	for(let link of pageList){
+		i++
+		if(i > limit){
+			break
+		}
 		link = link
 			.replace(/\=/g, `/`)
 			.replace(/\?/g, `/`)
@@ -26,7 +66,6 @@ export async function getStaticPaths() {
 
 	return {
 	  paths,
-	  fallback: false,
-	  // fallback: `blocking`,
+	  fallback: `blocking`,
 	}
  }

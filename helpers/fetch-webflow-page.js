@@ -1,10 +1,10 @@
 const cheerio = require(`cheerio`)
 const axios = require(`axios`).default
 const containsAssetDomain = require(`./contains-asset-domain`)
-const config = require('../exolayer.config')
+const config = require('../exolayer.config.json')
 const pageList = require('../.exolayer/page-list.json')
 
-module.exports = async function fetchWebflowPage({ url }) {
+module.exports = async function fetchWebflowPage({ url, ignoreError }) {
 
   if(url.charAt(0) !== `/`){
     url = `/${url}`
@@ -15,32 +15,39 @@ module.exports = async function fetchWebflowPage({ url }) {
     webflowUrl = webflowUrl.slice(0, -1)
   }
 
-  // If not in page list, it's probably a paginated link that needs to be reassembled
-  if(pageList.indexOf(url) === -1 && url !== `/404`){
-    url = url.split(`/`)
-    const pageNumber = url.pop()
-    const paramName = url.pop()
-    url = url.join(`/`)
-    url = `${url}?${paramName}=${pageNumber}`
-  }
   url = webflowUrl + url
 
   console.log(`Fetching`, url)
 
   // Fetch HTML
-  console.log(`Fetching ${url}`)
-  let res = await axios(url)
-    .catch(err => {
-      console.log(`Error fetching ${url}`)
-      console.error(err)
-    })
-  const html = res.data
+  let data
+  try{
+    let res = await axios(url)
+      .catch(err => {
+        console.log(`Error fetching ${url}`)
+        console.error(err)
+        if(ignoreError){
+          data = err.response.data
+        }
+      })
+    data = res.data
+    // console.log(`res.data`, data)
+  }
+  catch(err){
+    if(!data){
+      process.exit(1)
+    }
+  }
+  const html = data
 
 
   // Parse HTML with Cheerio
   const $ = cheerio.load(html)
 
-  $(`[data-component], [component]`).remove()
+  // $(`[data-component], [component]`).remove()
+
+  // Add ignore attribute to slideshow images
+  $(`.w-slider-mask img`).attr(`data-next-ignore`, `true`)
 
   // Remove Webflow scripts
   // $(`script`).each((i, el) => {
@@ -96,33 +103,48 @@ module.exports = async function fetchWebflowPage({ url }) {
     if(href){
 
       // Fix cross-origin links
-      if (href.indexOf(`://`) > -1) {
+      const isExternal = href.indexOf(`:`) > -1
+      if (isExternal) {
         $el.attr(`rel`, `noopener noreferrer`)
       }
 
       // Convert paginated links to static paths
-      if(href.indexOf(`?`) > -1 && href.indexOf(`=`) > -1){
+      else if(href.indexOf(`?`) > -1 && href.indexOf(`=`) > -1){
 
         href = href.replace(/\?/g, `/`).replace(/\=/g, `/`)
         $el.attr(`href`, pathname + href)
       }
-
-      // Make internal links external
-      // else if (!toBool(process.env.BCP)) {
-      //   $el.attr(`href`, `${origin}${href.replace(`/`, ``)}`)
-      // }
     }
   })
 
+
+  const htmlAttributes = $(`html`).attr()
+  delete htmlAttributes[`data-wf-domain`]
+  const bodyAttributes = $(`body`).attr()
+
+  // Create body HTML without scripts for initial render
+  let noScriptsBody = $(`body`).clone()
+  noScriptsBody.find(`script`).remove()
+  noScriptsBody = noScriptsBody.html()
+
+  // Create head HTML without scripts for initial render
+  let noScriptsHead = $(`head`).clone()
+  noScriptsHead.find(`script`).remove()
+  noScriptsHead = noScriptsHead.html()
 
   // Convert back to HTML strings
   const bodyContent = $(`body`).html()
   const headContent = $(`head`).html()
 
+
   // Send HTML to component via props
   return {
     bodyContent,
     headContent,
+    noScriptsBody,
+    noScriptsHead,
+    htmlAttributes,
+    bodyAttributes,
     webflowStylesheet,
     url,
   }

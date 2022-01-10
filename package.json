@@ -1,14 +1,18 @@
 {
-  "name": "@app/sandbox",
+  "name": "@smarterlabs/design-sync",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "bootstrap": "node ./helpers/bootstrap.js",
-    "build": "yarn run bootstrap && next build",
-    "helpers": "yarn helpers:ensure-header-footer && yarn helpers:sitemap",
-    "helpers:sitemap": "node helpers/generate-sitemap.js",
-    "helpers:ensure-header-footer": "node helpers/ensure-header-and-footer.js",
+    "bootstrap": "yarn build:config && dotenv -e .env -- node ./helpers/bootstrap.js",
+    "build": "yarn run bootstrap && dotenv -e .env -- next build",
+    "build:start": "dotenv -e .env -- node helpers/build-start.js",
+    "build:finish": "node ./helpers/build-finish.js",
+    "build:error": "dotenv -e .env -- node helpers/build-errored.js",
+    "build:config": "dotenv -e .env -- node ./helpers/create-config.js",
+    "build:netlify": "dotenv -e .env -- netlify build --offline",
+    "deploy:netlify": "dotenv -e .env -- netlify deploy --prod",
+    "netlify": "yarn build:netlify && yarn deploy:netlify",
     "lint": "next lint",
     "start": "next start"
   },
@@ -29,6 +33,7 @@
     "react-loader-spinner": "^4.0.0",
     "react-use-copy-to-clipboard": "^1.0.1",
     "reactstrap": "^9.0.1",
+    "sharp": "^0.29.3",
     "sitemap-links": "^1.0.3",
     "uuid": "^8.3.2",
     "yup": "^0.32.11"
@@ -42,6 +47,8 @@
     "husky": "^7.0.4",
     "lerna": "^4.0.0",
     "lint-staged": "^12.1.2",
-    "serve": "^13.0.2"
+    "netlify-cli": "^8.6.0",
+    "serve": "^13.0.2",
+    "uglify-js": "^3.14.5"
   }
 }

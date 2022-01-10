@@ -8,7 +8,7 @@ import get from 'lodash/get'
 import React from 'react'
 import containsAssetDomain from '../helpers/contains-asset-domain'
 import fetchWebflowPage from '../helpers/fetch-webflow-page'
-import config from '../exolayer.config'
+import config from '../exolayer.config.json'
 
 
 // Determines if URL is internal or external
@@ -18,7 +18,8 @@ function isUrlInternal(link){
     link.indexOf(`https:`) === 0 ||
     link.indexOf(`#`) === 0 ||
     link.indexOf(`http`) === 0 ||
-    link.indexOf(`://`) === 0
+    link.indexOf(`://`) === 0 ||
+    link.indexOf(`:`) !== -1
   ){
     return false
   }
@@ -35,20 +36,34 @@ function createReplace({ placement, url }){
     }
   
     // Replace links with Next links
-    if(config.clientRouting && node.name === `a` && isUrlInternal(attribs.href)){
-      let { href, style, ...props } = attribs
-      if(props.class){
-        props.className = props.class
-        delete props.class
-      }
-      if(href.indexOf(`?`) === 0){
-        href = url + href
-      }
-      console.log(`Replacing link:`, href)
-      if(!style){
+    if(node.name === `a`){
+      const isInternal = isUrlInternal(attribs.href)
+      if(config.clientRouting && isInternal){
+        let { href, style, ...props } = attribs
+        if(props.class){
+          props.className = props.class
+          delete props.class
+        }
+        if(href.indexOf(`?`) === 0){
+          href = url + href
+        }
+        // console.log(`Replacing link:`, href)
+        if(!style){
+          return (
+            <Link href={href}>
+              <a {...props}>
+                {!!node.children && !!node.children.length &&
+                  domToReact(node.children, {
+                    replace: createReplace({ placement, url }),
+                  })
+                }
+              </a>
+            </Link>
+          )
+        }
         return (
           <Link href={href}>
-            <a {...props}>
+            <a {...props} href={href} css={style}>
               {!!node.children && !!node.children.length &&
                 domToReact(node.children, {
                   replace: createReplace({ placement, url }),
@@ -58,27 +73,24 @@ function createReplace({ placement, url }){
           </Link>
         )
       }
-      return (
-        <Link href={href}>
-          <a {...props} href={href} css={style}>
-            {!!node.children && !!node.children.length &&
-              domToReact(node.children, {
-                replace: createReplace({ placement, url }),
-              })
-            }
-          </a>
-        </Link>
-      )
     }
   
-    if(node.name === `img` && config.optimizeImages){
+    // console.log(`config.optimizeImages`, config.optimizeImages)
+    if(node.name === `img` && config.optimizeImages && !attribs[`data-next-ignore`]){
       const { src, alt, style, ...props } = attribs
+
+      // console.log(`src`, src)
+      // console.log(`props`, props)
       if(props.class){
         props.className = props.class
         delete props.class
       }
+      if(props.srcset){
+        props.srcSet = props.srcset
+        delete props.srcset
+      }
       if(props.width && props.height){
-  
+        console.log(`next/image`, src)
         if(!style){
           return (
             <Image
@@ -101,17 +113,49 @@ function createReplace({ placement, url }){
           />
         )
       }
+      else{
+        return (
+          <img
+            // loading='lazy'
+            {...props}
+            src={src}
+            alt={alt}
+            width={props.width}
+            height={props.height}
+            css={style || undefined}
+          />
+
+        )
+      }
     }
   
   
     // Better loading for scripts, but can change the order they're loaded in at
     if(node.name === `script`){
+
+      if(attribs.src){
+        if(attribs.src.split(`/`).pop() === `webfont.js`){
+          attribs.defer = true
+        }
+      }
+      
       let content = get(node, `children.0.data`)
       if(content && content.trim().indexOf(`WebFont.load(`) === 0){
-        // content = `setTimeout(function(){console.log("webfont", window.WebFont);${content}}, 100)`
+        content = [
+          `;!function(){`,
+            `if(window.loadedWebfonts) return;`,
+            `window.loadedWebfonts = setInterval(function(){`,
+              `if(window.WebFont){`,
+                `clearInterval(window.loadedWebfonts);`,
+                `window.loadedWebfonts = true;`,
+                content,
+              `};`,
+            `}, 10);`,
+          `}();`,
+        ].join(``)
         if(config.optimizeJsLoading){
           return (
-            <Script {...attribs} dangerouslySetInnerHTML={{ __html: content }} />
+            <script {...attribs} dangerouslySetInnerHTML={{ __html: content }} defer />
           )
         }
         else{
@@ -126,19 +170,20 @@ function createReplace({ placement, url }){
         if(placement === `body`){
           if(attribs.src){
             if(containsAssetDomain(attribs.src)){
-              return (
-                <Script src='/exolayer.js' />
-              )
+              return <div></div>
+              // return (
+              //   <Script {...attribs} />
+              // )
             }
-            // if(attribs.src.indexOf(`jquery`) > -1 && attribs.src.indexOf(`site=`) > -1){
-            //   return null
-            // }
+            if(attribs.src.indexOf(`jquery`) > -1 && attribs.src.indexOf(`site=`) > -1){
+              return <div></div>
+            }
             return (
               <Script {...attribs}></Script>
             )
           }
           return(
-            <Script {...attribs} dangerouslySetInnerHTML={{__html: content}}></Script>
+            <script {...attribs} dangerouslySetInnerHTML={{__html: content}}></script>
           )
           
         }
@@ -168,36 +213,106 @@ function createReplace({ placement, url }){
   }
 }
 
+let firstLoad = false
+let interval
+let mountEvent
+let unmountEvent
+
+const progressiveRender = false
 
 export default function WebflowPage(props) {
-  const [options, setOptions] = useState()
-  
-  useEffect(() => {
-    setOptions({
-      head: createReplace({
-        placement: `head`,
-        url: props.url,
-      }),
-      body: createReplace({
-        placement: `body`,
-        url: props.url,
-      }),
-    })
-  }, [props.url])
+  const [bodyContent, setBodyContent] = useState(props.bodyContent)
 
+  useEffect(() => {
+    // For some reason if, sometimes if the page is rerendered, Webflow's JS removes some HTML
+    // Delaying and using static HTML for a frame forces React to re-render everything, so Webflow's JS starts with fresh elements without events attached
+    setBodyContent(null)
+    if(!mountEvent){
+      mountEvent = new Event(`pageMount`)
+      unmountEvent = new Event(`pageUnmount`)
+    }
+    setTimeout(() => {
+      setBodyContent(props.bodyContent)
+
+      if(window.Webflow){
+        if(firstLoad){
+          console.log(`Webflow: Updating...`)
+          window.Webflow.destroy();
+          window.Webflow.ready();
+          window.Webflow.require( 'ix2' ).init();
+          document.dispatchEvent( new Event( 'readystatechange' ) );
+          document.dispatchEvent(mountEvent)
+        }
+        else{
+          console.log(`Webflow: Initializing...`)
+          firstLoad = true
+          window.webflowInit()
+          // window.Webflow.ready();
+          document.dispatchEvent( new Event( 'readystatechange' ) );
+          document.dispatchEvent(mountEvent)
+        }
+      }
+      else if(!interval){
+        interval = setInterval(() => {
+          if(window.Webflow){
+            clearInterval(interval)
+            console.log(`Webflow: Initializing...`)
+            firstLoad = true
+            window.webflowInit()
+            document.dispatchEvent( new Event( 'readystatechange' ) );
+            document.dispatchEvent(mountEvent)
+          }
+        }, 100)
+      }
+    }, 1)
+    return () => {
+      document.dispatchEvent(unmountEvent)
+    }
+  }, [props.bodyContent])
+
+  const headOptions = createReplace({
+    placement: `head`,
+    url: props.url,
+  })
+  const bodyOptions = createReplace({
+    placement: `body`,
+    url: props.url,
+  })
+
+  useEffect(() => {
+    for(let attr in props.htmlAttributes){
+      document.documentElement.setAttribute(attr, props.htmlAttributes[attr])
+    }
+    for(let attr in props.bodyAttributes){
+      document.body.setAttribute(attr, props.bodyAttributes[attr])
+    }
+  }, [bodyContent])
+
+  // console.log(`props`, JSON.stringify(props, null, 3))
+
+  if(progressiveRender){
+    return <>
+      <Head>
+        {parseHtml(props.headContent, { replace: headOptions })}
+      </Head>
+      {parseHtml(props.bodyContent, { replace: bodyOptions })}
+    </>
+  }
+  
   return (
     <>
       <Head>
-        {!!options && parseHtml(props.headContent, { replace: options.head })}
+        {parseHtml(bodyContent ? props.headContent : props.noScriptsHead, { replace: headOptions })}
       </Head>
-      {!!options && parseHtml(props.bodyContent, { replace: options.body })}
+      {bodyContent ?
+        parseHtml(bodyContent, { replace: bodyOptions }) :
+        <div dangerouslySetInnerHTML={{ __html: props.noScriptsBody }} />
+      }
     </>
   )
 }
 
 export async function getStaticProps(ctx) {
-  console.log(`ctx`, ctx)
-
   // Use path to determine Webflow path
   let url = get(ctx, `params.path`, [`/`])
   url = url.join(`/`)
@@ -207,6 +322,6 @@ export async function getStaticProps(ctx) {
   // Send HTML to component via props
   return {
     props,
-    // revalidate: false,
+    revalidate: 10,
   }
 }
