@@ -1,5 +1,5 @@
 import DynamicPath from './index'
-import fetchWebflowPage from '../helpers/fetch-webflow-page'
+import fetchWebflowPage from '../design-sync/helpers/fetch-webflow-page'
 
 export default DynamicPath
 

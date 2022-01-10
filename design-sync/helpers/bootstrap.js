@@ -1,3 +1,4 @@
+require(`dotenv`).config({ silent: true })
 const getSitemapLinks = require(`sitemap-links`)
 const axios = require(`axios`)
 const cheerio = require(`cheerio`)
@@ -18,7 +19,7 @@ const dist = `.design-sync`
 // console.log(`config`, config)
 
 // Remove trailing slash from site
-let site = config.site
+let site = config.site || process.env.WEBFLOW_URL
 while(site[site.length - 1] === `/`){
 	site = site.slice(0, -1)
 }

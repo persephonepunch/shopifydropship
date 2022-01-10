@@ -1,6 +1,6 @@
 import DynamicPath from './index'
 import get from 'lodash/get'
-import fetchWebflowPage from '../helpers/fetch-webflow-page'
+import fetchWebflowPage from '../design-sync/helpers/fetch-webflow-page'
 import pageList from '../.design-sync/page-list.json'
 
 export default DynamicPath

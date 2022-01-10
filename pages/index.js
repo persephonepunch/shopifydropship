@@ -6,8 +6,8 @@ import Script from 'next/script'
 import parseHtml, { domToReact } from 'html-react-parser'
 import get from 'lodash/get'
 import React from 'react'
-import containsAssetDomain from '../helpers/contains-asset-domain'
-import fetchWebflowPage from '../helpers/fetch-webflow-page'
+import containsAssetDomain from '../design-sync/helpers/contains-asset-domain'
+import fetchWebflowPage from '../design-sync/helpers/fetch-webflow-page'
 import config from '../design-sync/config'
 
 // Determines if URL is internal or external

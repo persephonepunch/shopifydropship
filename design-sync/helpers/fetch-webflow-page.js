@@ -1,7 +1,7 @@
 const cheerio = require(`cheerio`)
 const axios = require(`axios`).default
 const containsAssetDomain = require(`./contains-asset-domain`)
-const meta = require(`../.design-sync/meta.json`)
+const meta = require(`../../.design-sync/meta.json`)
 
 module.exports = async function fetchWebflowPage({ url, ignoreError }) {
 
