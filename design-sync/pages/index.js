@@ -320,6 +320,6 @@ export async function getStaticProps(ctx) {
   // Send HTML to component via props
   return {
     props,
-    revalidate: 10,
+    revalidate: config.revalidate || false,
   }
 }

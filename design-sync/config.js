@@ -4,7 +4,7 @@ const config = {
   clientRouting: true,
   optimizeImages: true,
   optimizeJsLoading: true,
-  staticPageLimit: 200,
+  staticPageLimit: 0,
   revalidate: 10,
 }
 

@@ -35,7 +35,7 @@ export async function getStaticProps(ctx) {
 	// Send HTML to component via props
 	return {
 	  props,
-	  revalidate: false,
+	  revalidate: config.revalidate || false,
 	}
 }
 
