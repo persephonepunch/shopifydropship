@@ -38,7 +38,6 @@ yarn-error.log*
 # Exolayer-generated files
 .exolayer
 public/exolayer.js
-exolayer.config.json
 
 # Local Netlify folder
 .netlify

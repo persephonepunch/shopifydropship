@@ -4,12 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "bootstrap": "yarn build:config && dotenv -e .env -- node ./helpers/bootstrap.js",
+    "bootstrap": "dotenv -e .env -- node ./helpers/bootstrap.js",
     "build": "yarn run bootstrap && dotenv -e .env -- next build",
     "build:start": "dotenv -e .env -- node helpers/build-start.js",
     "build:finish": "node ./helpers/build-finish.js",
     "build:error": "dotenv -e .env -- node helpers/build-errored.js",
-    "build:config": "dotenv -e .env -- node ./helpers/create-config.js",
     "build:netlify": "dotenv -e .env -- netlify build --offline",
     "deploy:netlify": "dotenv -e .env -- netlify deploy --prod",
     "netlify": "yarn build:netlify && yarn deploy:netlify",

@@ -1,9 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import meta from '../.exolayer/meta.json'
-// import Script from 'next/script'
-// import config from '../exolayer.config.json'
-
-// console.log(`config.optimizeJsLoading`, config.optimizeJsLoading)
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {

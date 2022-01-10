@@ -8,7 +8,7 @@ import get from 'lodash/get'
 import React from 'react'
 import containsAssetDomain from '../helpers/contains-asset-domain'
 import fetchWebflowPage from '../helpers/fetch-webflow-page'
-import config from '../exolayer.config.json'
+import config from '../exolayer.config'
 
 
 // Determines if URL is internal or external

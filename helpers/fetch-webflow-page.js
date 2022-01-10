@@ -1,8 +1,7 @@
 const cheerio = require(`cheerio`)
 const axios = require(`axios`).default
 const containsAssetDomain = require(`./contains-asset-domain`)
-const config = require('../exolayer.config.json')
-const pageList = require('../.exolayer/page-list.json')
+const meta = require(`../.exolayer/meta.json`)
 
 module.exports = async function fetchWebflowPage({ url, ignoreError }) {
 
@@ -10,7 +9,7 @@ module.exports = async function fetchWebflowPage({ url, ignoreError }) {
     url = `/${url}`
   }
 
-  let webflowUrl = config.site
+  let webflowUrl = meta.webflowUrl
   if(webflowUrl.charAt(webflowUrl.length - 1) === `/`){
     webflowUrl = webflowUrl.slice(0, -1)
   }

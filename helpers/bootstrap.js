@@ -3,7 +3,7 @@ const axios = require(`axios`)
 const cheerio = require(`cheerio`)
 const UglifyJS = require("uglify-js")
 const { outputFile, outputJson, remove } = require(`fs-extra`)
-const config = require(`../exolayer.config.json`)
+const config = require(`../exolayer.config`)
 
 // Default Webflow CDNs
 const assetDomains = [
@@ -139,6 +139,7 @@ async function createMetaData($){
 	const metaData = {
 		htmlAttributes,
 		bodyAttributes,
+		webflowUrl: config.site || process.env.WEBFLOW_URL,
 	}
 
 	await outputJson(`${dist}/meta.json`, metaData, { spaces: 2 })
