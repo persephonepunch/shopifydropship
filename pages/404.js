@@ -1,4 +1,4 @@
-import DynamicPath from './index'
+import DynamicPath from './z'
 import fetchWebflowPage from '../design-sync/helpers/fetch-webflow-page'
 
 export default DynamicPath
