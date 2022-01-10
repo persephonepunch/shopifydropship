@@ -2,4 +2,4 @@ import PageComponent, { getStaticProps, getStaticPaths } from '../design-sync/pa
 
 export default PageComponent
 
-export { getStaticProps, getStaticPaths }
+export { getStaticPaths, getStaticProps }

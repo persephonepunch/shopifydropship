@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "bootstrap": "node design-sync/helpers/bootstrap.js",
-    "build": "yarn run bootstrap && next build",
+    "design-sync": "node design-sync/helpers/bootstrap.js",
+    "prebuild": "yarn run design-sync",
+    "build": "next build",
     "lint": "next lint",
     "start": "next start"
   },

@@ -5,6 +5,7 @@ const config = {
   optimizeImages: true,
   optimizeJsLoading: true,
   staticPageLimit: 200,
+  revalidate: 10,
 }
 
 module.exports = config

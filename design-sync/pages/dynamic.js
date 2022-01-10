@@ -37,7 +37,7 @@ export async function getStaticProps(ctx) {
 	  props,
 	  revalidate: false,
 	}
- }
+}
 
 export async function getStaticPaths() {
 	const paths = []
