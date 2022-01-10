@@ -1,5 +1,14 @@
-import PageComponent, { getStaticProps } from '../design-sync/pages/404'
+import Page404 from './dynamic'
+import fetchWebflowPage from '../helpers/fetch-webflow-page'
 
-export default PageComponent
+export default Page404
 
-export { getStaticProps }
+export async function getStaticProps(ctx) {
+	const props = await fetchWebflowPage({ url: `/404`, ignoreError: true })
+
+	// Send HTML to component via props
+	return {
+		props,
+		// revalidate: false,
+	}
+}

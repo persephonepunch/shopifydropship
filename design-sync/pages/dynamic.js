@@ -2,6 +2,7 @@ import DynamicPath from './index'
 import get from 'lodash/get'
 import fetchWebflowPage from '../helpers/fetch-webflow-page'
 import pageList from '../../.design-sync/page-list.json'
+import config from '../config'
 
 export default DynamicPath
 
@@ -42,7 +43,7 @@ export async function getStaticPaths() {
 	const paths = []
 
 	// Limit so builds don't take forever for large sites
-	const limit = 200
+	let limit = config.staticPageLimit || 0
 	let i = 0
 	for(let link of pageList){
 		i++

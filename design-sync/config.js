@@ -4,6 +4,7 @@ const config = {
   clientRouting: true,
   optimizeImages: true,
   optimizeJsLoading: true,
+  staticPageLimit: 200,
 }
 
 module.exports = config
