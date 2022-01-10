@@ -25,15 +25,8 @@ const config = {
   publishUrl: process.env.URL || process.env.VERCEL_URL || process.env.DEPLOY_URL,
   removeBranding: toBool(process.env.REMOVE_WEBFLOW_BRANDING),
   clientRouting: toBool(process.env.CLIENT_ROUTING),
-
-  // optimizeCssLoading: toBool(process.env.INLINE_CSS),
-
   optimizeImages: toBool(process.env.OPTIMIZE_IMAGES),
   optimizeJsLoading: toBool(process.env.OPTIMIZE_JS_LOADING, true),
-  robotsTxt: process.env.REPLACE_ROBOTS_TXT,
-  replaceSitemap: toBool(process.env.REPLACE_SITEMAP),
 }
-
-console.log(`config`, JSON.stringify(config, null, 2))
 
 module.exports = config
