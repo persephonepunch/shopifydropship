@@ -68,3 +68,31 @@ Your DesignSync.js project can be configured in the `/design-sync/config.js` fil
 | `removeBranding`    | Removes Webflow branding.                                                                                                   | `true`      |
 | `staticPageLimit`   | Sets how many pages will be staticly prerendered before using [ISR](https://vercel.com/docs/concepts/next.js/incremental-static-regeneration).                                                          | `200`         |
 | `revalidate`        | How many seconds before fetching the Webflow page again on load. Set to `false` to keep the page cached until next rebuild. | `false`     |
+
+## Troubleshooting
+
+### Image Styles
+
+Since [next/image](https://nextjs.org/docs/api-reference/next/image) needs to edit the image element, it may sometimes cause issues with image styles set up in Webflow. If you're experiencing issues with images, try disabling the `optimizeImages` option.
+
+If you would just like to disable image optimization for one or a few images, you can add a custom attribute of `data-next-ignore="true"` to the image in Webflow, and DesignSync.js will not convert it to a next/image.
+
+### Custom JavaScript
+
+Since the Next.js router essentially operates like a single page application, it's important to make sure that your custom JavaScript is only loaded whenever the page renders. If you have JS that needs to be loaded on every page, you can wrap it in `pageMount` and `pageUnmount` events, depending on when you want it to run. For example:
+
+```html
+<script>
+	// Runs every time a new page content is fully loaded in, after navigation
+	document.addEventListener('pageMount', function(){
+		// Your custom JS
+		console.log('New page has fully loaded in!')
+	})
+
+	// Runs right before page content is going to be destroyed, on navigation
+	document.addEventListener('pageUnmount', function(){
+		// Your custom JS
+		console.log('Old page is about to be removed...')
+	})
+</script>
+```
