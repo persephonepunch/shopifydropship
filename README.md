@@ -55,6 +55,28 @@ The easiest way to deploy your Next.js app is to deploy to [Vercel](https://verc
 
 Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
+## Automatically Sync on Webflow Publish
+
+If you want your Next.js site to resync automatically every time there's a Webflow publish, follow these steps. (This tutorial is assuming you're deploying to Vercel.)
+
+First, create a Webhook in your Vercel site's settings under the "Git" section in the left-hand side. Type "Webflow publish" for the hook name, "main" for the branch, and click "Create Hook".
+
+<p align="center"><img src="https://res.cloudinary.com/smarterlabs/image/upload/v1641941494/design-sync/webhooks/1-vercel-webhook-create.png" alt="Create webhook in Vercel" width="500" /></p>
+
+After the hook is created, you should see your new webhook's URL. Click the "Copy" button to copy it to your clipboard.
+
+<p align="center"><img src="https://res.cloudinary.com/smarterlabs/image/upload/v1641941494/design-sync/webhooks/2-vercel-webhook-url.png" alt="Copy webhook in Vercel" width="500" /></p>
+
+Then, in your Webflow site's settings, click the "Integrations" tab, and scroll down to the "Webhooks" area. Click "Add Webhook".
+
+<p align="center"><img src="https://res.cloudinary.com/smarterlabs/image/upload/v1641941494/design-sync/webhooks/3-webflow-add-webhook.png" alt="Add webhook in Webflow" width="150" /></p>
+
+For the "Trigger Type", select "Site publish". For the "Webhook URL", paste the URL you copied from the previous step. Click "Add Webhook".
+
+<p align="center"><img src="https://res.cloudinary.com/smarterlabs/image/upload/v1641941494/design-sync/webhooks/4-webflow-copy-webhook.png" alt="Create webhook in Webflow" width="500" /></p>
+
+Now, when you publish your Webflow site, your Next.js site will automatically sync.
+
 ## Configuration
 
 Your DesignSync.js project can be configured in the `/design-sync/config.js` file.
