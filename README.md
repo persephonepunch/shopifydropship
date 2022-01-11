@@ -1,8 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p align="center">
+	<img src="https://res.cloudinary.com/smarterlabs/image/upload/v1641926311/design-sync/logo.svg" alt="DesignSync.js" width="400" />
+</p>
+<p align="center">
+	<img src="https://res.cloudinary.com/smarterlabs/image/upload/v1641926314/design-sync/next-webflow.svg" alt="Next.js Webflow" width="300" />
+</p>
 
-## Getting Started
+DesignSync.js is a Next.js template that instantly imports and converts any Webflow site to React. You can use DesignSync.js to give your designers full control of your Next.js site. Skip weeks of frontend development time on every Next.js project.
 
-First, run the development server:
+## Requirements
+- A live Webflow site
+- Node.js 16.x or higher
+
+## Quickstart
+
+First, add your site to the `/design-sync/config.js` file. It should look something like this:
+
+```js
+module.exports = {
+  site: `https://your-site.webflow.io/`,
+  removeBranding: true,
+  clientRouting: true,
+  optimizeImages: true,
+  optimizeJsLoading: true,
+  staticPageLimit: 200,
+  revalidate: false,
+}
+```
+
+Then run the `bootstrap` npm script to import your site.
+
+```bash
+npm run bootstrap
+# or
+yarn bootstrap
+```
+
+After your site is done importing, start up a live development server with:
 
 ```bash
 npm run dev
@@ -12,23 +45,26 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+If your Webflow site changes, you can run the `bootstrap` npm script again to re-sync the Webflow content with your Next.js project.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+You can add Next.js [pages](https://nextjs.org/docs/basic-features/pages) or [API routes](https://nextjs.org/docs/api-routes/introduction) as you normally would with any other Next.js project. DesignSync.js will only display the Webflow page if there's not already a Next.js page for that route.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Deploy to Vercel
 
-## Learn More
+The easiest way to deploy your Next.js app is to deploy to [Vercel](https://vercel.com/new).
 
-To learn more about Next.js, take a look at the following resources:
+Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Configuration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Your DesignSync.js project can be configured in the `/design-sync/config.js` file.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+| Name                | Description                                                                                                                 | Default     |
+|---------------------|-----------------------------------------------------------------------------------------------------------------------------|-------------|
+| `site`              | The base URL of your Webflow site.                                                                                          | `undefined` |
+| `clientRouting`     | Converts links to use [next/link](https://nextjs.org/docs/api-reference/next/link) for faster, client-side routing.                                                          | `true`      |
+| `optimizeImages`    | Converts images to use [next/image](https://nextjs.org/docs/api-reference/next/image) for image optimizations.                                                                | `true`      |
+| `optimizeJsLoading` | Converts scripts to defer loading, and use [next/script](https://nextjs.org/docs/basic-features/script) for load optimization.                                             | `true`      |
+| `removeBranding`    | Removes Webflow branding.                                                                                                   | `true`      |
+| `staticPageLimit`   | Sets how many pages will be staticly prerendered before using [ISR](https://vercel.com/docs/concepts/next.js/incremental-static-regeneration).                                                          | `200`         |
+| `revalidate`        | How many seconds before fetching the Webflow page again on load. Set to `false` to keep the page cached until next rebuild. | `false`     |

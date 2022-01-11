@@ -1,11 +1,9 @@
-const config = {
+module.exports = {
   // site: `https://your-site.webflow.io/`,
-  removeBranding: true,
   clientRouting: true,
   optimizeImages: true,
   optimizeJsLoading: true,
+  removeBranding: true,
   staticPageLimit: 200,
   revalidate: false,
 }
-
-module.exports = config
