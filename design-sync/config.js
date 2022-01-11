@@ -5,5 +5,5 @@ module.exports = {
   optimizeJsLoading: true,
   removeBranding: true,
   staticPageLimit: 200,
-  revalidate: false,
+  optimizeJsLoading: false,
 }
