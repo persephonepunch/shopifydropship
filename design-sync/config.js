@@ -1,5 +1,5 @@
-const designSyncConfig = {
-  site: `https://your-site.webflow.io/`,
+module.exports = {
+  // site: `https://your-site.webflow.io/`,
   clientRouting: true,
   optimizeImages: true,
   optimizeJsLoading: true,
@@ -7,4 +7,3 @@ const designSyncConfig = {
   staticPageLimit: 200,
   revalidate: false,
 }
-module.exports = designSyncConfig
