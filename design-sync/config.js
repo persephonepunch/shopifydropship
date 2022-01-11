@@ -1,9 +1,10 @@
-module.exports = {
-  // site: `https://your-site.webflow.io/`,
+const designSyncConfig = {
+  site: `https://your-site.webflow.io/`,
   clientRouting: true,
   optimizeImages: true,
   optimizeJsLoading: true,
   removeBranding: true,
   staticPageLimit: 200,
-  optimizeJsLoading: false,
+  revalidate: false,
 }
+module.exports = designSyncConfig
