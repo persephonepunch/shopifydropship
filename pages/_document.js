@@ -31,6 +31,7 @@ class MyDocument extends Document {
               }}
             />
           </>}
+          <style dangerouslySetInnerHTML={{ __html: `html{scroll-behavior: smooth}` }} />
         </Head>
         <body {...meta.bodyAttributes}>
           <Main />
