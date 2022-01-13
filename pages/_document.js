@@ -37,6 +37,7 @@ class MyDocument extends Document {
           <Main />
           <NextScript />
           <script src='/design-sync.js' defer></script>
+          <script src="https://gumroad.com/js/gumroad.js" defer></script>
         </body>
       </Html>
     )
