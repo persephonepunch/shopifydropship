@@ -9,6 +9,10 @@ async function generateSitemap(){
   if(baseUrl.charAt(baseUrl.length - 1) == `/`){
     baseUrl = baseUrl.substring(0, baseUrl.length - 1)
   }
+  if(baseUrl.indexOf(`http`) !== 0){
+    baseUrl = `https://${baseUrl}`
+  }
+
 
   let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
