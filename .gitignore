@@ -38,6 +38,7 @@ yarn-error.log*
 # DesignSync-generated files
 .design-sync
 public/design-sync.js
+public/sitemap.xml
 
 # Local Netlify folder
 .netlify
