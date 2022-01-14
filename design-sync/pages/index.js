@@ -9,6 +9,7 @@ import React from 'react'
 import containsAssetDomain from '../helpers/contains-asset-domain'
 import fetchWebflowPage from '../helpers/fetch-webflow-page'
 import config from '../config'
+import userReplacer from '../replace'
 
 // Determines if URL is internal or external
 function isUrlInternal(link){
@@ -28,6 +29,14 @@ function isUrlInternal(link){
 // Replaces DOM nodes with React components
 function createReplace({ placement, url }){
   return function replace(node){
+
+    if(!node.attribs) node.attribs = {}
+
+    const userReplacerResponse = userReplacer(node)
+    if(userReplacerResponse){
+      return userReplacerResponse
+    }
+
     const attribs = node.attribs || {}
     if(attribs.class){
       attribs.className = attribs.class
