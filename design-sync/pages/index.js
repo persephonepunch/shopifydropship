@@ -37,7 +37,7 @@ function createReplace({ placement, url }){
     // Replace links with Next links
     if(node.name === `a`){
       const isInternal = isUrlInternal(attribs.href)
-      if(config.clientRouting && isInternal){
+      if(config.clientRouting && isInternal && attribs.href.indexOf(`#`) === -1){
         let { href, style, ...props } = attribs
         if(props.class){
           props.className = props.class

@@ -238,7 +238,9 @@ async function fetchJs($, assetDomains){
 		}
 
 		// console.log(`Minifying JS...`)
-		data = UglifyJS.minify(data).code
+		if(config.minifyJs){
+			data = UglifyJS.minify(data).code
+		}
 
 		await outputFile(filepath, data)
 	}

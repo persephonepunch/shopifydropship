@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "bootstrap": "node design-sync/helpers/bootstrap.js",
     "dev": "next dev",
-    "design-sync": "node design-sync/helpers/bootstrap.js",
-    "prebuild": "yarn run design-sync",
+    "prebuild": "yarn run bootstrap",
     "build": "next build",
     "lint": "next lint",
     "start": "next start"

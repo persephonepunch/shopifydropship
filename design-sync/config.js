@@ -4,6 +4,7 @@ module.exports = {
   optimizeImages: true,
   optimizeJsLoading: true,
   removeBranding: true,
+  minifyJs: false,
   staticPageLimit: 200,
   revalidate: false,
 }
