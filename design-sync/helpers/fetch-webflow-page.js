@@ -24,7 +24,7 @@ module.exports = async function fetchWebflowPage({ url, ignoreError }) {
     let res = await axios(url)
       .catch(err => {
         console.log(`Error fetching ${url}`)
-        console.error(err)
+        // console.error(err)
         if(ignoreError){
           data = err.response.data
         }

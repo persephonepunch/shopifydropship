@@ -5,7 +5,6 @@
   "scripts": {
     "bootstrap": "node design-sync/helpers/bootstrap.js",
     "dev": "next dev",
-    "prebuild": "yarn run bootstrap && node helpers/generate-sitemap",
     "build": "next build",
     "lint": "next lint",
     "start": "next start"
