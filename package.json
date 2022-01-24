@@ -5,7 +5,7 @@
   "scripts": {
     "bootstrap": "node design-sync/helpers/bootstrap.js",
     "dev": "next dev",
-    "build": "next build",
+    "build": "yarn bootstrap && next build",
     "lint": "next lint",
     "start": "next start"
   },

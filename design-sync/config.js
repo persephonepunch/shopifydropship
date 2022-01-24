@@ -1,5 +1,5 @@
 module.exports = {
-  // site: `https://your-site.webflow.io/`,
+  site: `https://designsync.webflow.io/`,
   clientRouting: true,
   optimizeImages: true,
   optimizeJsLoading: true,
