@@ -6,6 +6,7 @@
     "bootstrap": "node design-sync/helpers/bootstrap.js",
     "dev": "next dev",
     "build": "npm run bootstrap && next build",
+    "build:export": "yarn run build && next export",
     "lint": "next lint",
     "start": "next start"
   },

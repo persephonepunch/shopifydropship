@@ -83,7 +83,7 @@ function createReplace({ placement, url }){
       }
     }
   
-    // console.log(`config.optimizeImages`, config.optimizeImages)
+    // Remove this block for static pages since we can't use next/image
     if(node.name === `img` && config.optimizeImages && !attribs[`data-next-ignore`]){
       const { src, alt, style, ...props } = attribs
 
