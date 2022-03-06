@@ -310,6 +310,7 @@ export default function WebflowPage(props) {
     <>
       <Head>
         {parseHtml(bodyContent ? props.headContent : props.noScriptsHead, { replace: headOptions })}
+        <link rel="stylesheet" href="/design-sync.css" />
       </Head>
       {bodyContent ?
         parseHtml(bodyContent, { replace: bodyOptions }) :

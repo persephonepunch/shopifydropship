@@ -160,7 +160,7 @@ async function fetchCss($, assetDomains){
 		}
 	})
 	if(cssUrl){
-		const filepath = `${dist}/styles.css`
+		const filepath = `public/design-sync.css`
 		const response = await axios.get(cssUrl)
 		await outputFile(filepath, response.data)
 	}
