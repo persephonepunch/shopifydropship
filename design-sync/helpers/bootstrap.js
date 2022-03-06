@@ -116,7 +116,7 @@ async function createPageList(){
 		// Remove domain from link
 		const parsed = new URL(link)
 		link = parsed.pathname + parsed.search
-		if(links.indexOf(link) === -1){
+		if(links.indexOf(link) === -1 && link !== `/404`){
 			links.push(link)
 		}
 	}
