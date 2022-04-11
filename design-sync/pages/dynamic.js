@@ -12,7 +12,6 @@ export async function getStaticProps(ctx) {
 	let url = get(ctx, `params.path`)
 	url = url.join(`/`)
 
-
  	 // If not in page list, it's probably a paginated link that needs to be reassembled
 	if(pageList.indexOf(`/${url}`) === -1 && url !== `404`){
 		url = url.split(`/`)
@@ -23,7 +22,6 @@ export async function getStaticProps(ctx) {
 	}
 
 	if(pageList.indexOf(`/${url}`) === -1){
-		console.log(`Path not in page list: ${url}`)
 		return{
 			notFound: true,
 			revalidate: false,
