@@ -1,5 +1,6 @@
 module.exports = {
   site: `https://designsync.webflow.io/`,
+  pages: [],
   clientRouting: true,
   optimizeImages: true,
   optimizeJsLoading: true,

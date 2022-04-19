@@ -102,7 +102,11 @@ async function createPageList(){
 
 	const sitemapUrl = `${site}/sitemap.xml`
 	const sitemapLinks = await getSitemapLinks(sitemapUrl)
-	const allLinks = await getAllLinks([`${site}/`])
+	const islandLinks = config.pages || []
+	sitemapLinks.push(...islandLinks)
+	const allLinks = await getAllLinks([
+		`${site}/`,
+	])
 	const crawlLinks = allLinks.links
 	const excludeFromSitemap = allLinks.excludeFromSitemap
 	
