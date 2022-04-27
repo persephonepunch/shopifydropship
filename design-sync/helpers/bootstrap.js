@@ -141,6 +141,10 @@ async function createMetaData($){
 		bodyAttributes.className = bodyAttributes.class
 		delete bodyAttributes.class
 	}
+	if(bodyAttributes.style){
+		bodyAttributes.css = bodyAttributes.style
+		delete bodyAttributes.style
+	}
 	const metaData = {
 		htmlAttributes,
 		bodyAttributes,

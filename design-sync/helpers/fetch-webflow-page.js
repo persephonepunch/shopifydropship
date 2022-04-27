@@ -135,6 +135,10 @@ module.exports = async function fetchWebflowPage({ url, ignoreError }) {
   const bodyContent = $(`body`).html()
   const headContent = $(`head`).html()
 
+  if(bodyAttributes.style){
+    bodyAttributes.css = bodyAttributes.style
+    delete bodyAttributes.style
+  }
 
   // Send HTML to component via props
   return {

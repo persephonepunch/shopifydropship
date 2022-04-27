@@ -135,6 +135,26 @@ function createReplace({ placement, url }){
         )
       }
     }
+
+
+    // Change style attributes to css
+    // if(attribs.style){
+    //   const Tag = node.name
+    //   const style = attribs.style
+    //   delete attribs.style
+    //   return (
+    //     <Tag
+    //       {...attribs}
+    //       css={style}
+    //     >
+    //       {!!node.children && !!node.children.length &&
+    //         domToReact(node.children, {
+    //           replace: createReplace({ placement, url }),
+    //         })
+    //       }
+    //     </Tag>
+    //   )
+    // }
   
   
     // Better loading for scripts, but can change the order they're loaded in at
