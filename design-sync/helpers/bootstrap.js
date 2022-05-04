@@ -101,7 +101,13 @@ async function createPageList(){
 	console.log(`Creating page list from Webflow site...`)
 
 	const sitemapUrl = `${site}/sitemap.xml`
-	const sitemapLinks = await getSitemapLinks(sitemapUrl)
+	let sitemapLinks = await getSitemapLinks(sitemapUrl)
+		.catch(err => {
+			console.error(`Error fetching sitemap`, err)
+		})
+	if(!sitemapLinks){
+		sitemapLinks = []
+	}
 	const islandLinks = config.pages || []
 	sitemapLinks.push(...islandLinks)
 	const allLinks = await getAllLinks([
