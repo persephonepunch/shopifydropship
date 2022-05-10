@@ -1,5 +1,5 @@
 module.exports = {
-  site: `https://designsync.webflow.io/`,
+  site: `https://studiohagenhaus.webflow.io/`,
   pages: [],
   clientRouting: true,
   optimizeImages: true,
