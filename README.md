@@ -4,13 +4,10 @@ Twitter/Shopify APIs
 
 Sanity
 
-Webflow to Next JS (https://designsync.app/)
-
-
-##Webflow to Next JS converter
+<h2>Webflow to Next JS converter</h2>
 
 ```sh
-(https://designsync.app/)
+https://designsync.app/
 ```
 
 
