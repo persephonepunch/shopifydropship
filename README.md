@@ -1,14 +1,26 @@
+<h1>Nested Next JS </h1>
+Reasons to utilize separate methods
+
+- Design and Editing Layer - includes font CDN and Design/Symbol publishing
+- Security - includes entitlement login retrieval user tagging/hook automation
+- Non Destructive Publishing with multiple stream to multiple dev/prod/staging AGILE code bases
+- Separation of PCI/HIPAA data workstreams from editorial content
+- Forms and functions 
+- SEO and image optimization after compile and publish
+
+
+<h1>Webflow to Next JS converter</h1>
+
+```sh
+https://designsync.app/
+```
+
+
 Next JS API hooked workflow
 
 Twitter/Shopify APIs
 
 Sanity
-
-<h2>Webflow to Next JS converter</h2>
-
-```sh
-https://designsync.app/
-```
 
 
 # Sanity Studio for Shopify Projects
