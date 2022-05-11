@@ -4,7 +4,14 @@ Twitter/Shopify APIs
 
 Sanity
 
-[Webflow to Next JS] (#https://designsync.app/)
+Webflow to Next JS (https://designsync.app/)
+
+
+##Webflow to Next JS converter
+
+```sh
+(https://designsync.app/)
+```
 
 
 # Sanity Studio for Shopify Projects
@@ -76,7 +83,7 @@ Delete a product document including all its associated variants in your Sanity C
 
 A shortcut to edit the current product or product variant in Shopify in a new window.
 
-<details><summary>Preview</summary><img src="https://user-images.githubusercontent.com/209129/141300887-793de67b-4293-4a4d-b590-0a6f18b95314.png" width="300" /></details>
+<details><summary>Preview</summary><img src="https://user-imaggit ses.githubusercontent.com/209129/141300887-793de67b-4293-4a4d-b590-0a6f18b95314.png" width="300" /></details>
 
 ### Bundled custom input and preview components
 
